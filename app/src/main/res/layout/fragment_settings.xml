@@ -1,0 +1,519 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <FrameLayout
+                android:id="@+id/admin_mode_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:drawablePadding="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_admin_mode"
+                    app:drawableStartCompat="@drawable/ic_key"
+                    app:drawableTint="?attr/colorPrimaryTint" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/admin_mode_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:clickable="false" />
+
+                <View
+                    android:id="@+id/admin_mode_vivider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_gravity="bottom"
+                    android:background="?attr/dividerColor" />
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/select_shop_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <ImageView
+                    android:id="@+id/shop_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/ic_shop"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorPrimaryTint" />
+
+                <TextView
+                    android:id="@+id/shop_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_shop"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/shop_subtitle_tv"
+                    app:layout_constraintStart_toEndOf="@+id/shop_iv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/shop_subtitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/shop_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/shop_title_tv"
+                    tools:text="Вешки" />
+
+                <View
+                    android:id="@+id/shop_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="?attr/dividerColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/select_printer_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <ImageView
+                    android:id="@+id/printer_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/ic_printer"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorPrimaryTint" />
+
+                <TextView
+                    android:id="@+id/printer_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_printer"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/printer_subtitle_tv"
+                    app:layout_constraintStart_toEndOf="@+id/printer_iv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/printer_subtitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/printer_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/printer_title_tv"
+                    tools:text="принтер" />
+
+                <View
+                    android:id="@+id/printer_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="?attr/dividerColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/select_scanner_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <ImageView
+                    android:id="@+id/scanner_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/ic_scanner"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorPrimaryTint" />
+
+                <TextView
+                    android:id="@+id/scanner_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_scanner"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/scanner_subtitle_tv"
+                    app:layout_constraintStart_toEndOf="@+id/scanner_iv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/scanner_subtitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/scanner_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/scanner_title_tv"
+                    tools:text="Сканер" />
+
+                <View
+                    android:id="@+id/scanner_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="?attr/dividerColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/scan_mode_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <ImageView
+                    android:id="@+id/scan_mode_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/ic_scanner"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorPrimaryTint" />
+
+                <TextView
+                    android:id="@+id/scan_mode_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_scan_mode"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/scan_mode_subtitle_tv"
+                    app:layout_constraintStart_toEndOf="@+id/scan_mode_iv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/scan_mode_subtitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/scan_mode_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/scan_mode_title_tv"
+                    tools:text="Сканер" />
+
+                <View
+                    android:id="@+id/scan_mode_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="?attr/dividerColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/select_orientation_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <ImageView
+                    android:id="@+id/orientation_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/ic_screen_orientation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorPrimaryTint" />
+
+                <TextView
+                    android:id="@+id/orientation_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_screen_orientation"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/orientation_subtitle_tv"
+                    app:layout_constraintStart_toEndOf="@+id/orientation_iv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/orientation_subtitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/orientation_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/orientation_title_tv"
+                    tools:text="Ориентация экрана" />
+
+                <View
+                    android:id="@+id/orientation_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="?attr/dividerColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                android:id="@+id/cookies_allowed_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:drawablePadding="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_cookies_allowed"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_options"
+                    app:drawableTint="?attr/colorPrimaryTint" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/cookies_allowed_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:clickable="false" />
+
+                <View
+                    android:id="@+id/cookies_allowed_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_gravity="bottom"
+                    android:background="?attr/dividerColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/cache_allowed_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:drawablePadding="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_cache_allowed"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_options"
+                    app:drawableTint="?attr/colorPrimaryTint"
+                    app:tint="?attr/colorPrimaryTint" />
+
+                <androidx.appcompat.widget.SwitchCompat
+                    android:id="@+id/cache_allowed_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end|center_vertical"
+                    android:clickable="false" />
+
+                <View
+                    android:id="@+id/cache_allowed_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_gravity="bottom"
+                    android:background="?attr/dividerColor" />
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/cache_mode_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <ImageView
+                    android:id="@+id/cache_mode_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/ic_screen_orientation"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorPrimaryTint" />
+
+                <TextView
+                    android:id="@+id/cache_mode_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_cache_mode"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/cache_mode_subtitle_tv"
+                    app:layout_constraintStart_toEndOf="@+id/cache_mode_iv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/cache_mode_subtitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/cache_mode_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/cache_mode_title_tv"
+                    tools:text="Режим кеширования" />
+
+                <View
+                    android:id="@+id/cache_mode_divider"
+                    android:layout_width="0dp"
+                    android:layout_height="2dp"
+                    android:background="?attr/dividerColor"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent" />
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <FrameLayout
+                android:id="@+id/clear_cache_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:drawablePadding="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_clear_cache"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_delete"
+                    app:drawableTint="?attr/colorPrimaryTint" />
+
+                <View
+                    android:id="@+id/clear_cache_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_gravity="bottom"
+                    android:background="?attr/dividerColor" />
+            </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/clear_cookies_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:orientation="horizontal"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start|center_vertical"
+                    android:drawablePadding="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_clear_cookies"
+                    android:textStyle="bold"
+                    app:drawableStartCompat="@drawable/ic_delete"
+                    app:drawableTint="?attr/colorPrimaryTint" />
+
+                <View
+                    android:id="@+id/clear_cookies_divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:layout_gravity="bottom"
+                    android:background="?attr/dividerColor" />
+
+            </FrameLayout>
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/custom_endpoint_layout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="@dimen/setting_item_mit_height"
+                android:paddingHorizontal="@dimen/setting_item_padding">
+
+                <ImageView
+                    android:id="@+id/custom_endpoint_iv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/content_description"
+                    android:src="@drawable/ic_options"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:tint="?attr/colorPrimaryTint" />
+
+                <TextView
+                    android:id="@+id/custom_endpoint_title_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    android:text="@string/text_custom_endpoint_title"
+                    android:textStyle="bold"
+                    app:layout_constraintBottom_toTopOf="@+id/custom_endpoint_subtitle_tv"
+                    app:layout_constraintStart_toEndOf="@+id/custom_endpoint_iv"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_chainStyle="packed" />
+
+                <TextView
+                    android:id="@+id/custom_endpoint_subtitle_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/setting_item_drawable_padding"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toEndOf="@+id/custom_endpoint_iv"
+                    app:layout_constraintTop_toBottomOf="@+id/custom_endpoint_title_tv"
+                    tools:text="Ссылка на стенд" />
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </LinearLayout>
+    </androidx.core.widget.NestedScrollView>
+</FrameLayout>

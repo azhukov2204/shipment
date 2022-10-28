@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr name="colorAccent" format="color" />
+    <attr name="colorStatusErrorFill" format="color" />
+    <attr name="colorStatusSuccessFill" format="color" />
+    <attr name="colorBlackText" format="color" />
+    <attr name="ErrorDetailsSnackBarBackground" format="color" />
+    <attr name="ErrorDetailsSnackBarActionTextColor" format="color" />
+    <attr name="colorBorderDivider" format="color" />
+</resources>

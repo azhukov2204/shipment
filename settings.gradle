@@ -14,3 +14,7 @@ dependencyResolutionManagement {
 }
 rootProject.name = "wms-native-mobile"
 include ':app'
+include ':utils:kotlin'
+include ':data'
+include ':utils:android'
+include ':domain'

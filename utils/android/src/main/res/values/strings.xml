@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="text_details">Детали</string>
+    <string name="text_close">Закрыть</string>
+    <string name="text_cancel">Отменить</string>
+    <string name="text_yes">Да</string>
+    <string name="text_no">Нет</string>
+</resources>

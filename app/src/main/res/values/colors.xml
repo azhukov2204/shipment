@@ -1,10 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
-    <color name="purple_500">#FF6200EE</color>
-    <color name="purple_700">#FF3700B3</color>
-    <color name="teal_200">#FF03DAC5</color>
-    <color name="teal_700">#FF018786</color>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
+    <!-- Сервис для именования цветов http://www.color-blindness.com/color-name-hue/ -->
+    <color name="mainBlack">#000000</color>
+    <color name="mainWhite">#FFFFFF</color>
+
+    <color name="colorDeYork">#E281C784</color>
+    <color name="colorPigmentGreen">#00A651</color>
+    <color name="colorCrusoe">#00622A</color>
+    <color name="colorPigmentGreenDark">#7000A651</color>
+    <color name="colorJewelGreen">#0B7136</color>
+    <color name="BritishRacingGreen">#005725</color>
+
+    <color name="colorLightGrey">#77F2F2F2</color>
+    <color name="colorDimGray">#6B6B6B</color>
+    <color name="colorGray">#757575</color>
+    <color name="colorGreyDark">#88868686</color>
+
+    <color name="colorWhiteSmoke">#F8F8F8</color>
+    <color name="colorVeryLightGrey">#CDCDCD</color>
+    <color name="colorSilver">#BDBDBD</color>
+    <color name="colorGainsboro">#D8D8D8</color>
+
+    <color name="colorIndianRed">#CD5C5C</color>
+    <color name="colorCinnabarRed99">#99E64618</color>
+    <color name="colorOutrageousOrange">#FF592A</color>
+    <color name="colorCinnabar">#e64618</color>
+    <color name="colorRed">#FF0000</color>
+    <color name="colorDarkRed">#8B0000</color>
+
+    <color name="colorYellow">#E0E45B</color>
+    <color name="colorChartreuseYellow">#EDF100</color>
+    <color name="colorGoldenYellow">#F0E800</color>
+
+    <color name="colorVistaBlue">#96CAB3</color>
+    <color name="colorContessaDim">#55BB7070</color>
+    <color name="colorSherpaBlue">#043D43</color>
+    <color name="colorBlue">#0010FC</color>
+    <color name="colorTurquoiseBlue">#C1EDF3</color>
+
+    <!--цвета, которые используются в методах с color-->
+
 </resources>

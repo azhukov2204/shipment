@@ -1,16 +1,136 @@
-<resources xmlns:tools="http://schemas.android.com/tools">
+<resources>
     <!-- Base application theme. -->
-    <style name="Theme.Wmsnativemobile" parent="Theme.MaterialComponents.DayNight.DarkActionBar">
-        <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/purple_500</item>
-        <item name="colorPrimaryVariant">@color/purple_700</item>
-        <item name="colorOnPrimary">@color/white</item>
-        <!-- Secondary brand color. -->
-        <item name="colorSecondary">@color/teal_200</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
-        <item name="colorOnSecondary">@color/black</item>
-        <!-- Status bar color. -->
-        <item name="android:statusBarColor" tools:targetApi="l">?attr/colorPrimaryVariant</item>
-        <!-- Customize your theme here. -->
+    <style name="Theme.Wmsnativemobile" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+
+        <item name="android:statusBarColor">@color/colorPigmentGreen</item>
+        <item name="android:textColor">@color/mainBlack</item>
+
+        <item name="colorBlackFill">@color/mainBlack</item>
+        <item name="colorBlackText">@color/mainBlack</item>
+        <item name="colorBlackTint">@color/mainBlack</item>
+        <item name="colorTextGray">@color/colorGray</item>
+
+        <item name="colorWhiteText">@color/mainWhite</item>
+        <item name="colorWhiteFill">@color/mainWhite</item>
+        <item name="colorWhiteTint">@color/mainWhite</item>
+
+        <item name="colorWhiteSmokeFill">@color/colorWhiteSmoke</item>
+        <item name="colorWhiteSmokeBackground">@color/colorWhiteSmoke</item>
+
+        <item name="colorGainsboroBackground">@color/colorGainsboro</item>
+        <item name="colorGainsboroTint">@color/colorGainsboro</item>
+
+        <item name="colorPrimary">@color/colorPigmentGreen</item>
+        <item name="colorPrimaryText">@color/colorPigmentGreen</item>
+        <item name="colorPrimaryTint">@color/BritishRacingGreen</item>
+        <item name="colorPrimaryTextHint">@color/colorPigmentGreen</item>
+        <item name="colorPrimaryBackground">@color/colorPigmentGreen</item>
+        <item name="colorPrimaryDarkBackground">@color/colorCrusoe</item>
+        <item name="colorPrimaryLightTint">@color/colorPigmentGreenDark</item>
+        <item name="colorPrimaryLightText">@color/colorPigmentGreenDark</item>
+        <item name="colorPrimaryLightFill">@color/colorPigmentGreenDark</item>
+        <item name="colorPrimaryMiddleDarkBackground">@color/colorJewelGreen</item>
+
+        <item name="colorShippingRequired">@color/colorContessaDim</item>
+        <item name="colorShippingAllowed">@color/mainWhite</item>
+
+        <item name="colorErrorText">@color/colorRed</item>
+
+        <item name="colorOrderInWork">@color/colorChartreuseYellow</item>
+
+        <item name="colorAccent">@color/colorOutrageousOrange</item>
+        <item name="colorAccentTint">@color/colorOutrageousOrange</item>
+        <item name="colorAccentText">@color/colorOutrageousOrange</item>
+        <item name="colorAccentBackground">@color/colorOutrageousOrange</item>
+
+        <item name="colorShippingTruckFill">@color/colorGoldenYellow</item>
+        <item name="colorPickupPointYellow">@color/colorGoldenYellow</item>
+
+        <item name="colorOrderDetailsBackground">@color/colorWhiteSmoke</item>
+        <item name="colorNavDrawerHeaderBackground">@color/colorSherpaBlue</item>
+        <item name="colorPositionAmountChanged">@color/colorTurquoiseBlue</item>
+
+        <item name="colorThumbTint">@color/colorSherpaBlue</item>
+        <item name="colorHistoryTint">@color/colorOutrageousOrange</item>
+
+        <item name="colorPrimaryBorderlessButton">@color/colorPigmentGreen</item>
+        <item name="colorDimGrayBorderlessButton">@color/colorDimGray</item>
+
+        <item name="colorNormalState">@color/colorGray</item>
+
+        <item name="colorStateConnected">@color/colorBlue</item>
+        <item name="colorStateConnecting">@color/colorYellow</item>
+        <item name="colorStateDisconnected">@color/colorRed</item>
+        <item name="colorStateNoDevice">@color/colorGray</item>
+        <item name="colorSelectRejected">@color/colorRed</item>
+
+        <item name="colorIconTint">@color/colorSilver</item>
+        <item name="colorSearchText">@color/colorVistaBlue</item>
+
+        <item name="colorCursorActive">@color/colorDeYork</item>
+        <item name="colorCursorInactive">@color/colorGreyDark</item>
+
+        <item name="iconColorStateDisconnectedTint">@color/colorRed</item>
+        <item name="colorDisabledBackground">@color/colorDimGray</item>
+
+        <item name="colorOrderCanceled">@color/colorVeryLightGrey</item>
+        <item name="colorOrderWorkStatusAvailable">@color/colorWhiteSmoke</item>
+
+        <item name="colorDarkRedTint">@color/colorDarkRed</item>
+        <item name="colorDarkRedFill">@color/colorDarkRed</item>
+
+        <item name="colorItemMenuDisableTint">@color/colorRed</item>
+        <item name="colorLightRedTint">@color/colorIndianRed</item>
+
+        <item name="colorActionTint">@color/colorWhiteSmoke</item>
+        <item name="colorWizardIconBackground">@color/colorLightGrey</item>
+
+        <item name="colorPigmentGreenTabShipping">@color/colorPigmentGreen</item>
+        <item name="colorDeYorkTabShipping">@color/colorDeYork</item>
+
+        <item name="colorInactiveTabText">@color/colorVistaBlue</item>
+
+        <item name="colorPositionLight">@color/colorWhiteSmoke</item>
+        <item name="colorPositionDark">@color/mainWhite</item>
+
+        <item name="colorBorderDivider">@color/colorGainsboro</item>
+
+        <item name="dividerColor">@color/colorWhiteSmoke</item>
+
+
+        <item name="colorViewInvalid">@color/colorVeryLightGrey</item>
+        <item name="colorViewValid">@color/colorPigmentGreen</item>
+
+        <item name="colorWorkSessionErrorBanner">@color/colorCinnabarRed99</item>
+
+        <item name="ErrorDetailsSnackBarBackground">@color/colorCinnabar</item>
+        <item name="ErrorDetailsSnackBarActionTextColor">@color/mainWhite</item>
+
     </style>
+
+    <style name="TextInputLayoutStyle" parent="Widget.Design.TextInputLayout">
+        <item name="android:theme">@style/EditTextStyle</item>
+        <item name="colorControlNormal">@drawable/bg_txo_edittext_normal</item>
+        <item name="colorControlActivated">?attr/colorAccent</item>
+        <item name="colorControlHighlight">?attr/colorAccent</item>
+    </style>
+
+
+    <style name="EditTextStyle">
+        <item name="colorControlNormal">@drawable/bg_txo_edittext_normal</item>
+        <item name="colorControlActivated">?attr/colorAccent</item>
+        <item name="android:textColor">@drawable/bg_txo_edittext_normal</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="ThemeOverlay.MaterialComponents.Dialog.Alert">
+        <item name="buttonBarNegativeButtonStyle">@style/AlertDialogButtonStyle</item>
+        <item name="buttonBarPositiveButtonStyle">@style/AlertDialogButtonStyle</item>
+        <item name="buttonBarNeutralButtonStyle">@style/AlertDialogButtonStyle</item>
+    </style>
+
+    <style name="AlertDialogButtonStyle" parent="Widget.MaterialComponents.Button.TextButton.Dialog">
+        <item name="android:textColor">?attr/colorAccent</item>
+    </style>
+
 </resources>

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="Theme.Tsom">
+
+        <attr name="colorPrimary" format="color" />
+        <attr name="colorPrimaryText" format="color" />
+        <attr name="colorPrimaryTint" format="color" />
+        <attr name="colorPrimaryTextHint" format="color" />
+        <attr name="colorPrimaryBackground" format="color" />
+        <attr name="colorTextGray" format="color" />
+
+        <attr name="colorPrimaryLightText" format="color" />
+        <attr name="colorPrimaryLightFill" format="color" />
+        <attr name="colorPrimaryLightTint" format="color" />
+        <attr name="colorPrimaryDarkBackground" format="color" />
+        <attr name="colorPrimaryMiddleDarkBackground" format="color" />
+
+        <attr name="colorWhiteSmokeFill" format="color" />
+        <attr name="colorWhiteSmokeBackground" format="color" />
+
+        <attr name="colorWhiteText" format="color" />
+        <attr name="colorWhiteFill" format="color" />
+        <attr name="colorWhiteTint" format="color" />
+
+        <attr name="colorBlackText" format="color" />
+        <attr name="colorBlackFill" format="color" />
+        <attr name="colorBlackTint" format="color" />
+
+        <attr name="colorPositionLight" format="color" />
+        <attr name="colorPositionDark" format="color" />
+
+        <attr name="colorOrderDetailsBackground" format="color" />
+        <attr name="colorNavDrawerHeaderBackground" format="color" />
+        <attr name="colorPositionAmountChanged" format="color" />
+
+        <attr name="colorThumbTint" format="color" />
+        <attr name="colorHistoryTint" format="color" />
+        <attr name="colorItemMenuDisableTint" format="color" />
+
+        <attr name="colorErrorText" format="color" />
+
+        <attr name="colorAccent" format="color" />
+        <attr name="colorAccentText" format="color" />
+        <attr name="colorAccentTint" format="color" />
+        <attr name="colorAccentBackground" format="color" />
+
+        <attr name="colorGainsboroTint" format="color" />
+        <attr name="colorGainsboroBackground" format="color" />
+
+        <attr name="colorDarkRedTint" format="color" />
+        <attr name="colorDarkRedFill" format="color" />
+
+        <attr name="colorRedTint" format="color" />
+        <attr name="colorLightRedTint" format="color" />
+
+        <attr name="colorShippingTruckFill" format="color" />
+        <attr name="colorPickupPointYellow" format="color" />
+
+        <attr name="colorStateConnecting" format="color" />
+        <attr name="colorStateConnected" format="color" />
+        <attr name="colorStateDisconnected" format="color" />
+        <attr name="colorStateNoDevice" format="color" />
+
+        <attr name="colorSelectRejected" format="color" />
+        <attr name="colorNormalState" format="color" />
+
+        <attr name="colorShippingRequired" format="color" />
+        <attr name="colorShippingAllowed" format="color" />
+
+        <attr name="colorOrderInWork" format="color" />
+        <attr name="colorOrderCanceled" format="color" />
+        <attr name="colorOrderWorkStatusAvailable" format="color" />
+
+        <attr name="colorSearchText" format="color" />
+        <attr name="colorIconTint" format="color" />
+
+        <attr name="colorDimmedBackground" format="color" />
+        <attr name="colorWizardIconBackground" format="color" />
+        <attr name="colorActionTint" format="color" />
+
+        <attr name="colorPrimaryBorderlessButton" format="color" />
+        <attr name="colorDimGrayBorderlessButton" format="color" />
+
+        <attr name="colorPigmentGreenTabShipping" format="color" />
+        <attr name="colorDeYorkTabShipping" format="color" />
+
+        <attr name="colorInactiveTabText" format="color" />
+
+        <attr name="colorCursorActive" format="color" />
+        <attr name="colorCursorInactive" format="color" />
+
+        <attr name="iconColorStateDisconnectedTint" format="color" />
+
+        <attr name="colorDisabledBackground" format="color" />
+
+        <attr name="colorBorderDivider" format="color" />
+
+        <attr name="colorViewInvalid" format="color" />
+        <attr name="colorViewValid" format="color" />
+
+        <attr name="colorWorkSessionErrorBanner" format="color" />
+
+        <attr name="defaultIconColor" format="color" />
+        <attr name="defaultIconLightTint" format="color" />
+        <attr name="colorInactiveTab" format="color" />
+        <attr name="colorIconHint" format="color" />
+        <attr name="colorPrimaryDark" format="color" />
+        <attr name="colorSearchHint" format="color" />
+        <attr name="colorPureDark" format="color" />
+        <attr name="colorPureLight" format="color" />
+        <attr name="colorPrimaryLight" format="color" />
+    </declare-styleable>
+</resources>

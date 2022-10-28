@@ -1,0 +1,60 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+    id 'kotlinx-serialization'
+}
+
+android {
+    compileSdk 32
+
+    defaultConfig {
+        minSdk 23
+        targetSdk 32
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+}
+
+dependencies {
+
+    implementation "com.squareup.okhttp3:logging-interceptor:$logging_interceptor"
+    implementation "io.insert-koin:koin-android:$koin_version"
+
+    debugImplementation "com.github.chuckerteam.chucker:library:$chucker_version"
+    releaseImplementation  "com.github.chuckerteam.chucker:library-no-op:$chucker_version"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
+    kapt "androidx.room:room-compiler:$room_version"
+
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.google.code.gson:gson:$gson_version"
+    implementation "com.squareup.retrofit2:converter-gson:$gson_converter_version"
+
+    implementation "com.jakewharton.timber:timber:$timber_version"
+    implementation "com.jakewharton.threetenabp:threetenabp:$three_ten_abp_version"
+
+    implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_serialization"
+    implementation "org.apache.commons:commons-text:$commons_text"
+
+    implementation project(':domain')
+    implementation project(':utils:android')
+    implementation project(':utils:kotlin')
+}

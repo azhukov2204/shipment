@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="setting_item_padding">8dp</dimen>
+    <dimen name="setting_item_mit_height">56dp</dimen>
+    <dimen name="setting_item_drawable_padding">8dp</dimen>
+    <dimen name="toolbar_height">56dp</dimen>
+</resources>

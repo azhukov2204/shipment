@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+
+<head>
+    <title>Page test app WMS</title>
+</head>
+
+<style>
+    .tab {
+        overflow: hidden;
+        border: 1px solid #ccc;
+        background-color: #f1f1f1;
+    }
+
+    .tab button {
+        background-color: inherit;
+        float: left;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        padding: 14px 16px;
+        transition: 0.3s;
+    }
+
+    .tab button:hover {
+        background-color: #ddd;
+    }
+
+    .tab button.active {
+        background-color: #ccc;
+    }
+
+    .tabcontent {
+        display: none;
+        padding: 6px 12px;
+        border: 1px solid #ccc;
+        border-top: none;
+    }
+
+    .outer {
+        text-align: center;
+        vertical-align: middle;
+        width: 92%;
+    }
+
+    .inner {
+        height: 100px;
+        display: inline-block;
+        width: 100%;
+        margin: 5px;
+        padding: 5px;
+    }
+
+</style>
+
+<script>
+    function openTab(evt, tabName) {
+
+        var i, tabcontent, tablinks;
+
+        tabcontent = document.getElementsByClassName("tabcontent");
+        for (i = 0; i < tabcontent.length; i++) {
+            tabcontent[i].style.display = "none";
+        }
+
+        tablinks = document.getElementsByClassName("tablinks");
+        for (i = 0; i < tablinks.length; i++) {
+            tablinks[i].className = tablinks[i].className.replace(" active", "");
+        }
+
+        document.getElementById(tabName).style.display = "block";
+        evt.currentTarget.className += " active";
+    }
+
+    function getNativeConfigValue() {
+        var key = document.getElementById('settings_key').value;
+        var type = document.getElementById('settings_type').value;
+
+        alert(nativeApp.getNativeConfigValue(key, type));
+    }
+
+    function getAppConfigValue() {
+        var key = document.getElementById('settings_key').value;
+        var type = document.getElementById('settings_type').value;
+
+        alert(nativeApp.getAppConfigValue(key, type));
+    }
+
+    function setNativeConfigValue() {
+        var key = document.getElementById('settings_key').value;
+        var type = document.getElementById('settings_type').value;
+        var value = document.getElementById('settings_value').value;
+
+        if (nativeApp.setNativeConfigValue(key, type, value)) {
+            alert('Настройка для native установлена');
+        } else {
+            alert('Настройка для native не установлена');
+        }
+    }
+
+    function setAppConfigValue() {
+        var key = document.getElementById('settings_key').value;
+        var type = document.getElementById('settings_type').value;
+        var value = document.getElementById('settings_value').value;
+
+        if (nativeApp.setAppConfigValue(key, type, value)) {
+            alert('Настройка для app установлена');
+        } else {
+            alert('Настройка для app не установлена');
+        }
+    }
+
+    function isPrinterConnected() {
+        if (nativeApp.isPrinterConnected()) {
+            alert('Принтер подключен');
+        } else {
+            alert('Принтер не подключен');
+        }
+    }
+
+    function sendDataToPrinter() {
+        var data = document.getElementById('printer_data').value;
+        nativeApp.sendDataToPrinter(getPrinterData(data), 'Windows-1251')
+    }
+
+    function sendDataLonelyToPrinter() {
+        var data = document.getElementById('printer_data').value;
+        nativeApp.sendDataLonelyToPrinter(getPrinterData(data), 'Windows-1251')
+    }
+
+    function getPrinterData(customData) {
+        return "! 0 400 250 410 1\n" +
+            "B PDF-417 10 20 XD 3 YD 12 C 3 S 2\n" +
+            "hello\n" +
+            "ENDPDF\n" +
+            "BOX 0 0 400 250 8\n" +
+            "T 4 0 10 170 " + customData + "\n" +
+            "FORM\n" +
+            "PRINT\n";
+    }
+
+    /**
+     * Из нативного приложения
+     */
+
+    function onBarcodeScanned(barcode) {
+        alert(barcode);
+    }
+
+    function onBackPressed(result) {
+        alert('Нажата кнопка назад');
+    }
+
+    function onPrinterEvent(event) {
+        alert(event);
+    }
+
+</script>
+
+
+<body class="outer">
+
+    <div class="tab">
+        <button class="tablinks" onclick="openTab(event, 'Common')">Общее</button>
+        <button class="tablinks" onclick="openTab(event, 'Settings')">Настройки</button>
+        <button class="tablinks" onclick="openTab(event, 'Printer')">Принтер</button>
+        <button class="tablinks" onclick="openTab(event, 'Notifications')">Уведомления</button>
+        <button class="tablinks" onclick="openTab(event, 'Device')">Устройство</button>
+        <button class="tablinks" onclick="openTab(event, 'Cache')">Кэш/Куки</button>
+    </div>
+
+    <div id="Common" class="tabcontent outer">
+        <input class="inner" type="submit" value="alert" onclick="alert('hello from wms-native-app')">
+        <input class="inner" type="submit" value="Получить версию приложения" onclick="alert(nativeApp.getAppVersion())">
+        <input class="inner" type="submit" value="Получить код приложения" onclick="alert(nativeApp.getAppCode())">
+        <input class="inner" type="submit" value="Получить дату инициализации" onclick="alert(nativeApp.getDateInitApp())">
+        <input class="inner" type="submit" value="Получить дату установки приложения" onclick="alert(nativeApp.getDateInstallApp())">
+        <input class="inner" type="submit" value="Получить IMEI" onclick="alert(nativeApp.getImei())">
+        <input class="inner" type="submit" value="Рестарт WebView" onclick="nativeApp.restartWebView()">
+        <input class="inner" type="submit" value="Рестарт приложения" onclick="nativeApp.restartApp()">
+    </div>
+
+    <div id="Settings" class="tabcontent outer">
+
+        <div class="outer">
+            <p>Ключ</p>
+            <input id="settings_key" type="text" value="">
+        </div>
+        <div class="outer">
+            <p>Значение</p>
+            <input id="settings_value" type="text" value="">
+        </div>
+        <div class="outer">
+            <p>Тип</p>
+            <input id="settings_type" type="text" value="">
+        </div>
+
+        <input class="inner" type="submit" value="Получить String значение из конфига Native" onclick="getNativeConfigValue()">
+        <input class="inner" type="submit" value="Получить Int значение из конфига Native" onclick="getNativeConfigValue()">
+        <input class="inner" type="submit" value="Получить Boolean значение из конфига Native" onclick="getNativeConfigValue()">
+        <input class="inner" type="submit" value="Получить Float значение из конфига Native" onclick="getNativeConfigValue()">
+
+        <input class="inner" type="submit" value="Установить String значение в конфиг Native" onclick="setNativeConfigValue()">
+        <input class="inner" type="submit" value="Установить Int значение в конфиг Native" onclick="setNativeConfigValue()">
+        <input class="inner" type="submit" value="Установить Boolean значение в конфиг Native" onclick="setNativeConfigValue()">
+        <input class="inner" type="submit" value="Установить Float значение в конфиг Native" onclick="setNativeConfigValue()">
+
+
+        <input class="inner" type="submit" value="Получить String значение из конфига App" onclick="getAppConfigValue()">
+        <input class="inner" type="submit" value="Получить Int значение из конфига App" onclick="getAppConfigValue()">
+        <input class="inner" type="submit" value="Получить Boolean значение из конфига App" onclick="getAppConfigValue()">
+        <input class="inner" type="submit" value="Получить Float значение из конфига App" onclick="getAppConfigValue()">
+
+        <input class="inner" type="submit" value="Установить String значение в конфиг App" onclick="setAppConfigValue()">
+        <input class="inner" type="submit" value="Установить Int значение в конфиг App" onclick="setAppConfigValue()">
+        <input class="inner" type="submit" value="Установить Boolean значение в конфиг App" onclick="setAppConfigValue()">
+        <input class="inner" type="submit" value="Установить Float значение в конфиг App" onclick="setAppConfigValue()">
+
+
+    </div>
+
+    <div id="Printer" class="tabcontent outer">
+
+        <div class="outer">
+            <p>Текст для печати</p>
+            <input id="printer_data" type="text" value="">
+        </div>
+
+        <input class="inner" type="submit" value="Прямая печать" onclick="sendDataLonelyToPrinter()">
+        <input class="inner" type="submit" value="Подключиться к принтеру" onclick="nativeApp.connectToPrinter()">
+        <input class="inner" type="submit" value="Подключен ли принтер" onclick="isPrinterConnected()">
+        <input class="inner" type="submit" value="Отправить данные на принтер" onclick="sendDataToPrinter()">
+        <input class="inner" type="submit" value="Отключиться от принтера" onclick="nativeApp.disconnectFromPrinter()">
+    </div>
+
+    <div id="Device" class="tabcontent outer">
+        <input class="inner" type="submit" value="Установить настройку использования сканера = true" onclick="nativeApp.setInternalScannerEnabled(true)">
+        <input class="inner" type="submit" value="Установить настройку использования сканера = false" onclick="nativeApp.setInternalScannerEnabled(false)">
+        <input class="inner" type="submit" value="Открыть фотосканнер (закрывать окно после скана)" onclick="nativeApp.startScanByPhoto(true)">
+        <input class="inner" type="submit" value="Открыть фотосканнер (не закрывать окно после скана)" onclick="nativeApp.startScanByPhoto(false)">
+    </div>
+
+    <div id="Notifications" class="tabcontent outer">
+        <input class="inner" type="submit" value="Отобразить диалог" onclick="nativeApp.showDialog('Тут описание', 'Закрыть')">
+        <input class="inner" type="submit" value="Отобразить Snackbar" onclick="nativeApp.showSnackbar('Текст в Snackbar')">
+        <input class="inner" type="submit" value="Отобразить Toast" onclick="nativeApp.showToast('Текст в Toast')">
+        <input class="inner" type="submit" value="Отобразить долгий Toast" onclick="nativeApp.showToastLong('Текст в долгом Toast')">
+        <input class="inner" type="submit" value="Отобразить ошибку в виде Snackbar" onclick="nativeApp.showError('Заголовок ошибки', 'Описание ошибки')">
+        <input class="inner" type="submit" value="Вибратор" onclick="nativeApp.doVibro(1000)">
+    </div>
+
+    <div id="Cache" class="tabcontent outer">
+        <input class="inner" type="submit" value="Очистить кэш" onclick="nativeApp.clearCache()">
+        <input class="inner" type="submit" value="Очистить Cookies" onclick="nativeApp.clearCookies()">
+        <input class="inner" type="submit" value="Установить режим кэширования CACHE_ELSE_NETWORK" onclick="nativeApp.setCacheMode('LOAD_CACHE_ELSE_NETWORK')">
+        <input class="inner" type="submit" value="Установить режим кэширования CACHE_ONLY" onclick="nativeApp.setCacheMode('LOAD_CACHE_ONLY')">
+        <input class="inner" type="submit" value="Установить режим кэширования DEFAULT" onclick="nativeApp.setCacheMode('LOAD_DEFAULT')">
+        <input class="inner" type="submit" value="Установить режим кэширования NORMAL" onclick="nativeApp.setCacheMode('LOAD_NORMAL')">
+        <input class="inner" type="submit" value="Установить режим кэширования NO_CACHE" onclick="nativeApp.setCacheMode('LOAD_NO_CACHE')">
+    </div>
+
+
+</body>
+
+</html>
