@@ -31,7 +31,6 @@ class SplashViewModel(
             else -> currentState
         }
 
-
     private fun handleOnLifecycleOwnerCreate() = viewModelScopeIO.launch {
         initAppInteractor.checkInitDate()
 

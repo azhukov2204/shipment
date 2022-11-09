@@ -22,18 +22,13 @@ import androidx.annotation.DimenRes
 import androidx.annotation.DrawableRes
 import androidx.core.content.ContextCompat
 import androidx.core.content.pm.PackageInfoCompat.getLongVersionCode
-import ru.perekrestok.android.BuildConfig
 import ru.perekrestok.kotlin.StringPatterns
 import timber.log.Timber
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 
-private const val NUMBER_FOR_CONVERT = 1000
 private const val DATE_FORMAT = "dd.MM kk:mm"
-private const val SUB_PATH_TO_DOWNLOADS = "/Download/tso/"
-private const val APK_MIME_TYPE = "application/vnd.android.package-archive"
-private const val APK_FILENAME_EXTENSION = ".apk"
 private const val DEFAULT_VERSION_CODE = 0L
 
 fun Activity.hideKeyboard() {
@@ -169,6 +164,3 @@ fun Context.getDirectoryPatch(fileDirectoryPath: FileDirectoryPath): String {
 
     return storageDirectory.absolutePath + fileDirectoryPath.directoryPath
 }
-
-
-

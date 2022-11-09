@@ -2,7 +2,6 @@ package ru.perekrestok.domain.entity
 
 import kotlinx.serialization.Serializable
 
-
 @Serializable
 data class MapPosition(
     val latitude: Double,

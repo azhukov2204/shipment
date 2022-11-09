@@ -21,6 +21,7 @@ import ru.perekrestok.wms_native_mobile.R
 import ru.perekrestok.wms_native_mobile.databinding.FragmentShipmentBinding
 import ru.perekrestok.wms_native_mobile.screens.shipment.web_view.ShopsChromeWebViewClient
 
+@Suppress("TooManyFunctions")
 class ShipmentFragment : BaseFragment<ShipmentViewModel, ShipmentViewState>(R.layout.fragment_shipment) {
 
     companion object {
@@ -77,8 +78,6 @@ class ShipmentFragment : BaseFragment<ShipmentViewModel, ShipmentViewState>(R.la
             allowFileAccessFromFileURLs = true
             setNeedInitialFocus(true)
         }
-
-
     }
 
     override fun observeViewState(newState: ShipmentViewState) = with(binding) {
@@ -97,7 +96,7 @@ class ShipmentFragment : BaseFragment<ShipmentViewModel, ShipmentViewState>(R.la
         ShipmentSingleEvent.ClearCache -> clearWebViewCache()
         ShipmentSingleEvent.ReloadData -> reloadData()
         is ShipmentSingleEvent.SetEnabledSwipeToRefresh -> setEnabledSwipeToRefresh(event)
-        is ShipmentSingleEvent.RenderJSCommand -> renderJavaScriptCommand(event)
+        is ShipmentSingleEvent.ExecuteJSCommand -> executeJavaScriptCommand(event)
     }
 
     private fun setEnabledSwipeToRefresh(event: ShipmentSingleEvent.SetEnabledSwipeToRefresh) {
@@ -123,25 +122,25 @@ class ShipmentFragment : BaseFragment<ShipmentViewModel, ShipmentViewState>(R.la
         }
     }
 
-    private fun FragmentShipmentBinding.setCacheSettings(webViewSettings: WebViewSettings) =
-        with(shipmentWv) {
-            settings.apply {
-                cacheMode = webViewSettings.webViewCacheMode
+    @Suppress("NestedBlockDepth")
+    private fun FragmentShipmentBinding.setCacheSettings(webViewSettings: WebViewSettings) = with(shipmentWv) {
+        settings.apply {
+            cacheMode = webViewSettings.webViewCacheMode
 
-                if (webViewSettings.isCacheAllowed) {
-                    setAppCacheEnabled(true)
-                    domStorageEnabled = true
-                    databaseEnabled = true
-                    setAppCachePath(requireContext().getDirectoryPatch(FileDirectoryPath.WEB_VIEW_CACHE))
-                    if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
-                        databasePath = requireActivity().getDatabasePath(WEB_VIEW_CACHE_DB_NAME)?.path
-                    }
-                } else {
-                    cacheMode = WebSettings.LOAD_NO_CACHE
-                    viewModel.processUiEvent(ShipmentUiEvent.ClearCache)
+            if (webViewSettings.isCacheAllowed) {
+                setAppCacheEnabled(true)
+                domStorageEnabled = true
+                databaseEnabled = true
+                setAppCachePath(requireContext().getDirectoryPatch(FileDirectoryPath.WEB_VIEW_CACHE))
+                if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) {
+                    databasePath = requireActivity().getDatabasePath(WEB_VIEW_CACHE_DB_NAME)?.path
                 }
+            } else {
+                cacheMode = WebSettings.LOAD_NO_CACHE
+                viewModel.processUiEvent(ShipmentUiEvent.ClearCache)
             }
         }
+    }
 
     private fun FragmentShipmentBinding.setCookiesSettings(webViewSettings: WebViewSettings) {
         if (webViewSettings.isCookiesAllowed) {
@@ -166,7 +165,7 @@ class ShipmentFragment : BaseFragment<ShipmentViewModel, ShipmentViewState>(R.la
         }
     }
 
-    private fun renderJavaScriptCommand(event: ShipmentSingleEvent.RenderJSCommand) {
+    private fun executeJavaScriptCommand(event: ShipmentSingleEvent.ExecuteJSCommand) {
         binding.shipmentWv.evaluateJavascript(event.renderBarcodeJs) {}
         if (event.isNeedPressEnter) {
             viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {

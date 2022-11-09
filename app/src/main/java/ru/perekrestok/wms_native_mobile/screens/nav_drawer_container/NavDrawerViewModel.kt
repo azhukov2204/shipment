@@ -30,7 +30,7 @@ class NavDrawerViewModel(
         }
 
         viewModelScopeIO.launch {
-            deviceInteractor.printerConnectionStateFlow.collect {printerConnectionState ->
+            deviceInteractor.printerConnectionStateFlow.collect { printerConnectionState ->
                 processDataEvent(NavDrawerDataEvent.OnPrinterConnectionStateReceived(printerConnectionState))
             }
         }
@@ -64,8 +64,12 @@ class NavDrawerViewModel(
         event: NavDrawerDataEvent,
         currentState: NavDrawerViewState
     ): NavDrawerViewState = when (event) {
-        is NavDrawerDataEvent.OnScannerConnectionStateReceived -> currentState.copy(scannerConnectionState = event.deviceConnectionState)
-        is NavDrawerDataEvent.OnPrinterConnectionStateReceived -> currentState.copy(printerConnectionState = event.deviceConnectionState)
+        is NavDrawerDataEvent.OnScannerConnectionStateReceived -> currentState.copy(
+            scannerConnectionState = event.deviceConnectionState
+        )
+        is NavDrawerDataEvent.OnPrinterConnectionStateReceived -> currentState.copy(
+            printerConnectionState = event.deviceConnectionState
+        )
         is NavDrawerDataEvent.OnSettingsReceived -> currentState.copy(appSettings = event.settings)
     }
 
@@ -127,6 +131,8 @@ class NavDrawerViewModel(
     }
 
     private data class NavigationParams(
-        val screen: FragmentScreen, @ColorRes val titleResId: Int, val isToolbarVisible: Boolean
+        val screen: FragmentScreen,
+        @ColorRes val titleResId: Int,
+        val isToolbarVisible: Boolean
     )
 }

@@ -32,6 +32,7 @@ import ru.perekrestok.wms_native_mobile.screens.shops.ShopsFragment
 import ru.perekrestok.wms_native_mobile.screens.shops.ShopsScreen
 import timber.log.Timber
 
+@Suppress("LongParameterList", "TooManyFunctions")
 class SettingsViewModel(
     private val navDrawerRouter: NavDrawerRouter,
     private val mainActivityRouter: MainActivityRouter,
@@ -49,7 +50,6 @@ class SettingsViewModel(
         viewModelScopeIO.launch {
             settingsInteractor.getAppSettingsFlow().collect { settings ->
                 processDataEvent(SettingsDataEvent.OnSettingsReceived(settings))
-
             }
         }
     }
@@ -76,6 +76,7 @@ class SettingsViewModel(
             .also { handleOnScannerDevicesReceived(event, currentState) }
     }
 
+    @Suppress("ComplexMethod")
     private fun dispatchSettingsUiEvent(event: SettingsUiEvent, currentState: SettingsViewState): SettingsViewState =
         when (event) {
             SettingsUiEvent.OnAdminModeItemClicked -> currentState.also {
@@ -229,11 +230,13 @@ class SettingsViewModel(
     }
 
     private fun showSearchDevicesWaitingDialog() {
-        navDrawerRouter.addTo(WaitingDialogScreen(
-            message = stringResourceProvider.getStringResource(R.string.text_dialog_loading_bluetooth_devices),
-            closeButtonText = stringResourceProvider.getStringResource(R.string.text_close),
-            onCancelAction = { cancelCurrentJob() }
-        ))
+        navDrawerRouter.addTo(
+            WaitingDialogScreen(
+                message = stringResourceProvider.getStringResource(R.string.text_dialog_loading_bluetooth_devices),
+                closeButtonText = stringResourceProvider.getStringResource(R.string.text_close),
+                onCancelAction = { cancelCurrentJob() }
+            )
+        )
     }
 
     private fun handleOnPrinterDevicesReceived(
@@ -302,17 +305,18 @@ class SettingsViewModel(
         webViewOptionInteractor.saveCacheMode(cacheMode)
     }
 
-
     private fun showEnterAdminModePasswordDialog() {
-        navDrawerRouter.addTo(EditTextDialogScreen(
-            title = stringResourceProvider.getStringResource(R.string.text_admin_mode_enter_password),
-            inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD,
-            positiveButtonText = stringResourceProvider.getStringResource(R.string.text_button_activate),
-            negativeButtonText = stringResourceProvider.getStringResource(R.string.text_button_cancel),
-            positiveButtonAction = { adminModePassword ->
-                activateAdminMode(adminModePassword)
-            }
-        ))
+        navDrawerRouter.addTo(
+            EditTextDialogScreen(
+                title = stringResourceProvider.getStringResource(R.string.text_admin_mode_enter_password),
+                inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_VARIATION_PASSWORD,
+                positiveButtonText = stringResourceProvider.getStringResource(R.string.text_button_activate),
+                negativeButtonText = stringResourceProvider.getStringResource(R.string.text_button_cancel),
+                positiveButtonAction = { adminModePassword ->
+                    activateAdminMode(adminModePassword)
+                }
+            )
+        )
     }
 
     private fun activateAdminMode(adminModePassword: String) = viewModelScopeIO.launch {

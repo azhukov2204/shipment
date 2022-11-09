@@ -8,8 +8,8 @@ import kotlinx.serialization.json.Json
 import kotlinx.serialization.serializer
 import ru.perekrestok.data.local.dao.AppSettingsDao
 import ru.perekrestok.data.local.entity.AppSettingEntity
-import ru.perekrestok.domain.entity.Device
 import ru.perekrestok.domain.entity.AppSetting
+import ru.perekrestok.domain.entity.Device
 import ru.perekrestok.domain.entity.SettingKey
 import ru.perekrestok.domain.entity.SettingType
 import ru.perekrestok.domain.entity.Shop
@@ -48,11 +48,10 @@ class LocalAppSettingsRepositoryImpl(
                 value = value
             )
         }
-            ?.toDomain() //чтоб не реализовывать дополнительной проверки на соответствие типа значению - просто делаю преобразование toDomain, а затем toEntity
+            ?.toDomain() // двойное преобразование - чтоб не реализовывать дополнительной проверки на соответствие типа
             ?.toEntity()?.let { setting ->
                 appSettingsDao.saveSetting(setting)
             }
-
     }
 
     private fun AppSetting<*>.toEntity(): AppSettingEntity {
@@ -105,10 +104,3 @@ class LocalAppSettingsRepositoryImpl(
         }
     }
 }
-
-
-
-
-
-
-

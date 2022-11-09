@@ -1,0 +1,32 @@
+complexity:
+  ComplexMethod:
+    threshold: 30
+  LongMethod:
+    threshold: 100
+  TooManyFunctions:
+    thresholdInClasses: 25
+    thresholdInFiles: 25
+
+exceptions:
+    TooGenericExceptionCaught:
+      active: false
+    TooGenericExceptionThrown:
+      active: false
+
+formatting:
+    Filename:
+      active: false
+    PackageName:
+      active: false
+
+naming:
+    MatchingDeclarationName:
+      active: false
+    PackageNaming:
+      active: false
+
+style:
+    ForbiddenComment:
+        active: false
+    ReturnCount: 
+        active: false

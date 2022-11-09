@@ -4,4 +4,3 @@ sealed class AdminModeException : Exception() {
     object PasswordEmpty : AdminModeException()
     object PasswordWrong : AdminModeException()
 }
-

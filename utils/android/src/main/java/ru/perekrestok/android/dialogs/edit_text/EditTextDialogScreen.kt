@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentFactory
 import com.github.terrakok.cicerone.androidx.FragmentScreen
 import ru.perekrestok.kotlin.StringPatterns
 
+@Suppress("LongParameterList")
 class EditTextDialogScreen(
     private val title: String,
     private val text: String = StringPatterns.EMPTY_SYMBOL,

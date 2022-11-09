@@ -21,32 +21,33 @@ class RenderJSBarcodeProviderImpl : RenderJSBarcodeProvider {
      */
     private fun getRenderToActiveFieldJs(escapedBarcode: String): String {
         return "(function(barcode) {\n" +
-                "    var ele = document.activeElement;\n" +
-                "    var tagName = ele.tagName.toLowerCase();\n" +
-                "    if (tagName == 'textarea' || ((tagName == 'input') && (ele.type == 'text' || ele.type == 'search' || ele.type == 'password' || ele.type == 'tel' || ele.type == 'url'))) {\n" +
-                "        var curLength = ele.value.length;\n" +
-                "        var maxlength = ele.maxLength;\n" +
-                "        var start = ele.selectionStart;\n" +
-                "        var end = ele.selectionEnd;\n" +
-                "        if (maxlength != -1) {\n" +
-                "            var leftLength = curLength - (end - start);\n" +
-                "            if (leftLength + barcode.length > maxlength) {\n" +
-                "                barcode = barcode.substr(0, maxlength - leftLength);\n" +
-                "            }\n" +
-                "        }\n" +
-                "        ele.value = ele.value.substr(0, start) + barcode + ele.value.substring(end, curLength);\n" +
-                "        ele.setSelectionRange(start + barcode.length, start + barcode.length);\n" +
-                "    } else if (tagName == 'input' && (ele.type == 'email' || ele.type == 'number')) {\n" +
-                "        var curLength = ele.value.length;\n" +
-                "        var maxlength = ele.maxLength;\n" +
-                "        if (maxlength != -1) {\n" +
-                "            if (curLength + barcode.length > maxlength) {\n" +
-                "                barcode = barcode.substr(0, maxlength - curLength);\n" +
-                "            }\n" +
-                "        }\n" +
-                "        ele.value = ele.value + barcode;\n" +
-                "    }\n" +
-                "})('$escapedBarcode');"
+            "    var ele = document.activeElement;\n" +
+            "    var tagName = ele.tagName.toLowerCase();\n" +
+            "    if (tagName == 'textarea' || ((tagName == 'input') && (ele.type == 'text' || ele.type == 'search' ||" +
+            "           ele.type == 'password' || ele.type == 'tel' || ele.type == 'url'))) {\n" +
+            "        var curLength = ele.value.length;\n" +
+            "        var maxlength = ele.maxLength;\n" +
+            "        var start = ele.selectionStart;\n" +
+            "        var end = ele.selectionEnd;\n" +
+            "        if (maxlength != -1) {\n" +
+            "            var leftLength = curLength - (end - start);\n" +
+            "            if (leftLength + barcode.length > maxlength) {\n" +
+            "                barcode = barcode.substr(0, maxlength - leftLength);\n" +
+            "            }\n" +
+            "        }\n" +
+            "        ele.value = ele.value.substr(0, start) + barcode + ele.value.substring(end, curLength);\n" +
+            "        ele.setSelectionRange(start + barcode.length, start + barcode.length);\n" +
+            "    } else if (tagName == 'input' && (ele.type == 'email' || ele.type == 'number')) {\n" +
+            "        var curLength = ele.value.length;\n" +
+            "        var maxlength = ele.maxLength;\n" +
+            "        if (maxlength != -1) {\n" +
+            "            if (curLength + barcode.length > maxlength) {\n" +
+            "                barcode = barcode.substr(0, maxlength - curLength);\n" +
+            "            }\n" +
+            "        }\n" +
+            "        ele.value = ele.value + barcode;\n" +
+            "    }\n" +
+            "})('$escapedBarcode');"
     }
 
     override fun getBackClickJS(): String {

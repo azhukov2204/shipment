@@ -10,7 +10,6 @@ import ru.perekrestok.domain.repository.LocalAppSettingsRepository
 import ru.perekrestok.domain.repository.LocalShopsRepository
 import ru.perekrestok.domain.repository.RemoteShopsRepository
 
-
 interface ShopsInteractor {
     suspend fun obtainShops(): Result<Unit>
     fun getCachedShopsFlow(): Flow<List<Shop>>

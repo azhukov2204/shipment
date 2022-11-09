@@ -26,7 +26,6 @@ class SplashFragment : BaseFragment<SplashViewModel, SplashViewState>(R.layout.f
         startLogoAnimation()
         permissionResultLauncher.launch(
             arrayOf(
-                Manifest.permission.CAMERA,
                 Manifest.permission.READ_PHONE_STATE
             )
         )
@@ -42,5 +41,6 @@ class SplashFragment : BaseFragment<SplashViewModel, SplashViewState>(R.layout.f
     }
 
     override fun observeViewState(newState: SplashViewState) {
+        // nothing
     }
 }

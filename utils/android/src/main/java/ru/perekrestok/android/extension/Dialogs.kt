@@ -21,6 +21,7 @@ import ru.perekrestok.android.databinding.IncludeDialogListBinding
 import ru.perekrestok.android.databinding.IncludeDialogWaitingBinding
 import ru.perekrestok.android.recycler_view.RecyclerViewItem
 
+@Suppress("LongParameterList")
 fun Context.showListDialog(
     adapter: AsyncListDifferDelegationAdapter<RecyclerViewItem>,
     decorator: RecyclerView.ItemDecoration? = null,

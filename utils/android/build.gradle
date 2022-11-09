@@ -2,6 +2,7 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id "io.gitlab.arturbosch.detekt"
 }
 
 android {
@@ -49,5 +50,14 @@ dependencies {
     implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:$adapter_delegates_version"
     implementation "io.insert-koin:koin-android:$koin_version"
 
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
+
     implementation project(':utils:kotlin')
+}
+
+detekt {
+    toolVersion = "$detekt_version"
+    buildUponDefaultConfig = true
+    autoCorrect = true
+    config = files("$rootDir/codequality/detekt.yml")
 }

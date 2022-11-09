@@ -15,6 +15,7 @@ import ru.perekrestok.domain.provider.StringResourceProvider
 import ru.perekrestok.wms_native_mobile.screens.nav_drawer_container.NavDrawerRouter
 import ru.perekrestok.wms_native_mobile.screens.shipment.web_view.ShipmentJSViewModel
 
+@Suppress("LongParameterList")
 class ShipmentViewModel(
     private val settingsInteractor: SettingsInteractor,
     private val deviceInteractor: DeviceInteractor,
@@ -56,7 +57,6 @@ class ShipmentViewModel(
         viewModelScopeIO.launch {
             wireInteractor.commandFlow.collect { wireCommand ->
                 handleWireCommand(wireCommand)
-
             }
         }
 
@@ -95,7 +95,6 @@ class ShipmentViewModel(
             }
         }
 
-
     private fun handleReloadPage() {
         processSingleEvent(ShipmentSingleEvent.ReloadData)
     }
@@ -106,7 +105,9 @@ class ShipmentViewModel(
     ): ShipmentViewState = when (event) {
         is ShipmentDataEvent.OnAppSettingsReceived -> currentState.copy(appSettings = event.appSettings)
         is ShipmentDataEvent.OnCustomSettingsReceived -> currentState.copy(customSettings = event.customSettings)
-        is ShipmentDataEvent.OnPrinterConnectionStateReceived -> currentState.copy(printerConnectionState = event.printerConnectionState)
+        is ShipmentDataEvent.OnPrinterConnectionStateReceived -> currentState.copy(
+            printerConnectionState = event.printerConnectionState
+        )
         is ShipmentDataEvent.OnBarcodeReceived -> currentState.also {
             handleOnBarcodeReceived(currentState, event)
         }
@@ -119,7 +120,7 @@ class ShipmentViewModel(
             ScanMode.RUN_JS -> false
         }
         processSingleEvent(
-            ShipmentSingleEvent.RenderJSCommand(
+            ShipmentSingleEvent.ExecuteJSCommand(
                 renderBarcodeJs = renderBarcodeJs,
                 isNeedPressEnter = isNeedPressEnter
             )
@@ -129,7 +130,7 @@ class ShipmentViewModel(
     private fun handleOnButtonBackClicked() {
         val renderBarcodeJs = scannerInteractor.getBackClickJS()
         processSingleEvent(
-            ShipmentSingleEvent.RenderJSCommand(
+            ShipmentSingleEvent.ExecuteJSCommand(
                 renderBarcodeJs = renderBarcodeJs,
                 isNeedPressEnter = false
             )

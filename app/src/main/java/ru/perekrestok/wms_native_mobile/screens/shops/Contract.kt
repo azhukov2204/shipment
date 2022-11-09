@@ -31,7 +31,7 @@ data class ShopsViewState(
 
 sealed interface ShopsDataEvent : DataEvent {
     data class OnShopsReceived(val shops: List<Shop>) : ShopsDataEvent
-    data class OnChosenShopReceived(val shop: Shop): ShopsDataEvent
+    data class OnChosenShopReceived(val shop: Shop) : ShopsDataEvent
 }
 
 sealed interface ShopsUiEvent : UiEvent {
@@ -39,11 +39,11 @@ sealed interface ShopsUiEvent : UiEvent {
     data class OnSearchQueryFilled(val searchQuery: String) : ShopsUiEvent
     object RefreshShopList : ShopsUiEvent
     object OnCloseButtonClicked : ShopsUiEvent
-    object OnImeSearchClicked: ShopsUiEvent
+    object OnImeSearchClicked : ShopsUiEvent
 }
 
-sealed interface ShopsSingleEvent: SingleEvent {
-    object ClearSearchFieldFocus: ShopsSingleEvent
+sealed interface ShopsSingleEvent : SingleEvent {
+    object ClearSearchFieldFocus : ShopsSingleEvent
 }
 
 private fun List<Shop>.toAdapterItems(): List<ShopItem> {
@@ -58,4 +58,3 @@ private fun List<Shop>.toAdapterItems(): List<ShopItem> {
         )
     }
 }
-

@@ -68,7 +68,6 @@ class BluetoothPrinterProviderImpl(
                 _printerConnectionMutableStateFlow.emit(DeviceConnectionState.NO_DEVICE)
                 throw PrinterException.NoPrinter
             }
-
         } catch (error: Throwable) {
             Timber.e(error)
             _printerConnectionMutableStateFlow.emit(DeviceConnectionState.DISCONNECTED)
@@ -76,9 +75,7 @@ class BluetoothPrinterProviderImpl(
                 is BluetoothDeviceException, is PrinterException -> error
                 else -> PrinterException.CouldNotOpenConnection(message = error.message.orEmpty())
             }
-
         }
-
     }
 
     override suspend fun disconnect() {

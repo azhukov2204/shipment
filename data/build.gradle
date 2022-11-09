@@ -3,6 +3,7 @@ plugins {
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
     id 'kotlinx-serialization'
+    id "io.gitlab.arturbosch.detekt"
 }
 
 android {
@@ -54,7 +55,16 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-serialization-json:$kotlin_serialization"
     implementation "org.apache.commons:commons-text:$commons_text"
 
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
+
     implementation project(':domain')
     implementation project(':utils:android')
     implementation project(':utils:kotlin')
+}
+
+detekt {
+    toolVersion = "$detekt_version"
+    buildUponDefaultConfig = true
+    autoCorrect = true
+    config = files("$rootDir/codequality/detekt.yml")
 }

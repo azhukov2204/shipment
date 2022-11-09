@@ -12,6 +12,7 @@ class ShopsChromeWebViewClient(
     companion object {
         private const val MESSAGE_TAG = "chromium |console/error"
         private const val MESSAGE_FORMAT = "%s @ %d: %s"
+        private const val PROGRESS_MAX_VALUE = 100
     }
 
     override fun onConsoleMessage(consoleMessage: ConsoleMessage?): Boolean {
@@ -34,7 +35,7 @@ class ShopsChromeWebViewClient(
     override fun onProgressChanged(view: WebView?, newProgress: Int) {
         super.onProgressChanged(view, newProgress)
         pageLoadProgressListener(newProgress)
-        if (newProgress == 100) {
+        if (newProgress == PROGRESS_MAX_VALUE) {
             view?.clearHistory()
         }
     }

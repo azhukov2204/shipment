@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-parcelize'
+    id "io.gitlab.arturbosch.detekt"
 }
 
 android {
@@ -11,7 +12,7 @@ android {
         applicationId "ru.perekrestok.wms_native_mobile"
         minSdk 23
         targetSdk 32
-        versionCode 1
+        versionCode 3
         versionName "2.0.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -67,8 +68,17 @@ dependencies {
     implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-layoutcontainer:$adapter_delegates_version"
     implementation "com.hannesdorfmann:adapterdelegates4-kotlin-dsl-viewbinding:$adapter_delegates_version"
 
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
+
     implementation project(':utils:kotlin')
     implementation project(':utils:android')
     implementation project(':data')
     implementation project(':domain')
+}
+
+detekt {
+    toolVersion = "$detekt_version"
+    buildUponDefaultConfig = true
+    autoCorrect = true
+    config = files("$rootDir/codequality/detekt.yml")
 }

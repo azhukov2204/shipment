@@ -13,7 +13,6 @@ sealed interface WireCommand {
     object ClearCache : WireCommand
 }
 
-
 class WireInteractorImpl : WireInteractor {
     private val _commandMutableFlow: MutableSharedFlow<WireCommand> = MutableSharedFlow(replay = 1)
 

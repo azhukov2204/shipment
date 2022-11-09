@@ -44,4 +44,3 @@ abstract class BaseFragment<VIEW_MODEL : BaseViewModel<VIEW_STATE>, VIEW_STATE>(
         viewModel.processUiEvent(OnButtonBackClicked)
     }
 }
-

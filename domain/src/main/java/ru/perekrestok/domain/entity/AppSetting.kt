@@ -1,5 +1,6 @@
 package ru.perekrestok.domain.entity
 
+@Suppress("TooManyFunctions")
 data class AppSetting<T>(val key: SettingKey, val value: T) {
     companion object {
         private const val SCREEN_ORIENTATION_LANDSCAPE = 0

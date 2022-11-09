@@ -5,6 +5,7 @@ import retrofit2.http.GET
 import retrofit2.http.Header
 
 internal interface ShopsApi {
+    @Suppress("LongParameterList")
     @GET("tsom/config/shops")
     suspend fun getShops(
         @Header("App") appName: String,

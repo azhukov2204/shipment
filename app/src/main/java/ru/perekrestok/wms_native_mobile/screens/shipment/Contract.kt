@@ -28,7 +28,7 @@ data class ShipmentViewState(
         private const val MAX_LOADING_PROGRESS = 100
     }
 
-    private val shopBaseUrl = appSettings.getCustomEndpoint()?: appSettings.getCurrentShop()?.getShopUrl()
+    private val shopBaseUrl = appSettings.getCustomEndpoint() ?: appSettings.getCurrentShop()?.getShopUrl()
 
     val isDataReady: Boolean = shopBaseUrl?.isNotBlank() == true
 
@@ -63,13 +63,13 @@ sealed interface ShipmentUiEvent : UiEvent {
     data class OnPageLoadingProgressReceived(val progress: Int) : ShipmentUiEvent
     object ReloadPage : ShipmentUiEvent
     object OnPageLoaded : ShipmentUiEvent
-    object ClearCookies: ShipmentUiEvent
-    object ClearCache: ShipmentUiEvent
+    object ClearCookies : ShipmentUiEvent
+    object ClearCache : ShipmentUiEvent
 }
 
 sealed interface ShipmentSingleEvent : SingleEvent {
     data class SetEnabledSwipeToRefresh(val isEnabled: Boolean) : ShipmentSingleEvent
-    data class RenderJSCommand(val renderBarcodeJs: String, val isNeedPressEnter: Boolean) : ShipmentSingleEvent
+    data class ExecuteJSCommand(val renderBarcodeJs: String, val isNeedPressEnter: Boolean) : ShipmentSingleEvent
     object ClearCache : ShipmentSingleEvent
-    object ReloadData: ShipmentSingleEvent
+    object ReloadData : ShipmentSingleEvent
 }

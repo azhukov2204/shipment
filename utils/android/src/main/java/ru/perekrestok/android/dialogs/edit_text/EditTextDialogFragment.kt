@@ -18,6 +18,7 @@ class EditTextDialogFragment : DialogFragment() {
         private const val NEGATIVE_BUTTON_TEXT_KEY = "negative_button_text_key"
         private const val NEUTRAL_BUTTON_TEXT_KEY = "neutral_button_text_key"
 
+        @Suppress("LongParameterList")
         fun newInstance(
             title: String,
             text: String,
@@ -59,7 +60,7 @@ class EditTextDialogFragment : DialogFragment() {
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return requireContext().showEditTextDialog(
             title = title,
-            text=text,
+            text = text,
             positiveButtonText = positiveButtonText,
             negativeButtonText = negativeButtonText,
             neutralButtonText = neutralButtonText,

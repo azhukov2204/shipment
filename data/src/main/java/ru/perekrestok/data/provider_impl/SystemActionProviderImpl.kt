@@ -80,4 +80,3 @@ class SystemActionProviderImpl(
         exitProcess(2)
     }
 }
-

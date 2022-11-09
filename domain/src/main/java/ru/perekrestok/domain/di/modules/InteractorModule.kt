@@ -9,10 +9,10 @@ import ru.perekrestok.domain.interactor.InitAppInteractor
 import ru.perekrestok.domain.interactor.InitAppInteractorImpl
 import ru.perekrestok.domain.interactor.ScannerInteractor
 import ru.perekrestok.domain.interactor.ScannerInteractorImpl
-import ru.perekrestok.domain.interactor.SettingsInteractor
-import ru.perekrestok.domain.interactor.SettingsInteractorImpl
 import ru.perekrestok.domain.interactor.ScreenOrientationInteractor
 import ru.perekrestok.domain.interactor.ScreenOrientationInteractorImpl
+import ru.perekrestok.domain.interactor.SettingsInteractor
+import ru.perekrestok.domain.interactor.SettingsInteractorImpl
 import ru.perekrestok.domain.interactor.ShopsInteractor
 import ru.perekrestok.domain.interactor.ShopsInteractorImpl
 import ru.perekrestok.domain.interactor.SystemActionInteractor

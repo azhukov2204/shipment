@@ -8,7 +8,6 @@ import ru.perekrestok.android.fragment.BaseFragment
 import ru.perekrestok.wms_native_mobile.R
 import ru.perekrestok.wms_native_mobile.databinding.FragmentSettingsBinding
 
-
 class SettingsFragment : BaseFragment<SettingsViewModel, SettingsViewState>(R.layout.fragment_settings) {
 
     companion object {
@@ -75,7 +74,7 @@ class SettingsFragment : BaseFragment<SettingsViewModel, SettingsViewState>(R.la
         selectOrientationLayout.isVisible = newState.isAdminModeEnabled
         orientationSubtitleTv.text = newState.screenOrientationName
 
-        cookiesAllowedLayout.isVisible =  newState.isAdminModeEnabled
+        cookiesAllowedLayout.isVisible = newState.isAdminModeEnabled
         cookiesAllowedSwitch.isChecked = newState.isCookiesAllowed
 
         cacheAllowedLayout.isVisible = newState.isAdminModeEnabled

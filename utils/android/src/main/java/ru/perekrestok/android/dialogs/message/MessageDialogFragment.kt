@@ -30,7 +30,6 @@ class MessageDialogFragment : DialogFragment() {
     private val message: String by requireParameter(MESSAGE_KEY)
     private val buttonText: String by requireParameter(BUTTON_TEXT_KEY)
 
-
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return requireContext().showAlertDialog(
             message = message,

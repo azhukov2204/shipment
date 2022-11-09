@@ -48,13 +48,11 @@ internal class BluetoothScannerProviderImpl(
     private val _scannerConnectionMutableStateFlow: MutableStateFlow<DeviceConnectionState> =
         MutableStateFlow(DeviceConnectionState.NO_DEVICE)
 
-
     override suspend fun requestDelayMillis(): Long = REQUEST_DELAY_MILLIS
 
     private val _scanResultMutableFlow: MutableSharedFlow<String> = MutableSharedFlow()
 
     override val scanResultFlow: Flow<String> = _scanResultMutableFlow.asSharedFlow()
-
 
     override val scannerConnectionStateFlow: StateFlow<DeviceConnectionState> =
         _scannerConnectionMutableStateFlow.asStateFlow()
@@ -77,7 +75,11 @@ internal class BluetoothScannerProviderImpl(
     }
 
     override suspend fun sync() {
-        if (scannerConnectionStateFlow.value != DeviceConnectionState.CONNECTED && !mutex.isLocked) establishConnectionSafely()
+        if (scannerConnectionStateFlow.value != DeviceConnectionState.CONNECTED &&
+            !mutex.isLocked
+        ) {
+            establishConnectionSafely()
+        }
     }
 
     override suspend fun stopSync() {
@@ -98,9 +100,7 @@ internal class BluetoothScannerProviderImpl(
             Timber.e(error)
             _scannerConnectionMutableStateFlow.emit(DeviceConnectionState.DISCONNECTED)
         }
-
     }
-
 
     private suspend fun setNewScanner(newScanner: BluetoothDevice) {
         if (scanner != newScanner) {
@@ -108,7 +108,6 @@ internal class BluetoothScannerProviderImpl(
             scanner = newScanner
         }
     }
-
 
     private suspend fun connect(scanner: BluetoothDevice) {
         runCatching {
@@ -118,14 +117,12 @@ internal class BluetoothScannerProviderImpl(
 
             scannerBluetoothSocket?.let { scannerBluetoothSocket ->
                 if (!scannerBluetoothSocket.isConnected) scannerBluetoothSocket.connect()
-
             }
         }.onFailure { error ->
             Timber.e(error)
             _scannerConnectionMutableStateFlow.emit(DeviceConnectionState.DISCONNECTED)
         }
     }
-
 
     private suspend fun runInputStreamListener() {
         runCatching {
@@ -145,7 +142,6 @@ internal class BluetoothScannerProviderImpl(
                     } while (bufferText.last() != SCAN_END_CHAR)
                     _scanResultMutableFlow.emit(scanResult.toString())
                 }
-
             }
         }.onFailure { error ->
             Timber.e(error)

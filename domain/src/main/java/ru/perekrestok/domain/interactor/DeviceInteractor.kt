@@ -1,9 +1,9 @@
 package ru.perekrestok.domain.interactor
 
 import kotlinx.coroutines.flow.StateFlow
+import ru.perekrestok.domain.entity.AppSetting
 import ru.perekrestok.domain.entity.Device
 import ru.perekrestok.domain.entity.DeviceConnectionState
-import ru.perekrestok.domain.entity.AppSetting
 import ru.perekrestok.domain.entity.SettingKey
 import ru.perekrestok.domain.provider.BluetoothDeviceProvider
 import ru.perekrestok.domain.provider.BluetoothPrinterProvider
@@ -37,7 +37,6 @@ class DeviceInteractorImpl(
 
     override val printerConnectionStateFlow: StateFlow<DeviceConnectionState> =
         bluetoothPrinterProvider.printerConnectionStateFlow
-
 
     override suspend fun getBoundedDevices(): Result<List<Device>> = runCatching {
         bluetoothDeviceProvider.getBondedDevices()
@@ -76,15 +75,15 @@ class DeviceInteractorImpl(
         bluetoothPrinterProvider.connect()
     }
 
-    override suspend fun printData(data: String, encoding: String?)= runCatching {
+    override suspend fun printData(data: String, encoding: String?) = runCatching {
         bluetoothPrinterProvider.sendData(data, encoding)
     }
 
-    override suspend fun disconnectFromPrinter(): Result<Unit> = runCatching{
+    override suspend fun disconnectFromPrinter(): Result<Unit> = runCatching {
         bluetoothPrinterProvider.disconnect()
     }
 
-    override suspend fun printDataLonely(data: String, encoding: String?) = runCatching{
+    override suspend fun printDataLonely(data: String, encoding: String?) = runCatching {
         bluetoothPrinterProvider.sendDataLonely(data, encoding)
     }
 }

@@ -15,7 +15,6 @@ class MainActivityViewModel(
         viewModelScopeIO.launch {
             screenOrientationInteractor.getScreenOrientationFlow().collect { screenOrientation ->
                 processDataEvent(MainActivityDataEvent.OnScreenOrientationReceiver(screenOrientation))
-
             }
         }
     }

@@ -9,5 +9,4 @@ internal val apiModule = module {
     single<ShopsApi> {
         get<Retrofit>().create(ShopsApi::class.java)
     }
-
 }

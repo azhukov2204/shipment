@@ -8,5 +8,4 @@ class ShopsScreen(private val afterChoseShoppRouting: ShopsFragment.Companion.Af
     override fun createFragment(factory: FragmentFactory): Fragment {
         return ShopsFragment.newInstance(afterChoseShoppRouting)
     }
-
 }

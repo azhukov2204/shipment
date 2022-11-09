@@ -39,6 +39,7 @@ internal class BluetoothDeviceProviderImpl(
         }
     }
 
+    @Suppress("UnusedPrivateMember")
     override suspend fun tryEnableBluetooth() {
         for (i in 0..TRY_BLUETOOTH_ENABLE_MAX_ATTEMPTS) {
             if (isBluetoothEnabled) {

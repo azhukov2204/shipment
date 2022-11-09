@@ -24,12 +24,12 @@ import ru.perekrestok.wms_native_mobile.R
 import ru.perekrestok.wms_native_mobile.databinding.FragmentShopsBinding
 import ru.perekrestok.wms_native_mobile.screens.shops.delegate.shopsDelegate
 
+@Suppress("TooManyFunctions")
 class ShopsFragment : BaseFragment<ShopsViewModel, ShopsViewState>(R.layout.fragment_shops) {
 
     companion object {
-
         @Parcelize
-        enum class AfterChoseShopRouting: Parcelable {
+        enum class AfterChoseShopRouting : Parcelable {
             NEW_ROOT_SCREEN,
             EXIT
         }
@@ -67,7 +67,6 @@ class ShopsFragment : BaseFragment<ShopsViewModel, ShopsViewState>(R.layout.frag
         requireActivity().hideKeyboard()
     }
 
-
     override fun observeViewState(newState: ShopsViewState) = with(binding) {
         shopsAdapter.items = newState.shopItems
         ivClose.isVisible = newState.isCurrentShopNotEmpty
@@ -77,7 +76,6 @@ class ShopsFragment : BaseFragment<ShopsViewModel, ShopsViewState>(R.layout.frag
             newState.currentShop?.name.orEmpty()
         )
         renderLogoAnimation(newState.isAnimationLoading)
-
     }
 
     private fun FragmentShopsBinding.renderLogoAnimation(isAnimationLoading: Boolean) {
@@ -118,7 +116,8 @@ class ShopsFragment : BaseFragment<ShopsViewModel, ShopsViewState>(R.layout.frag
                         searchQuery = searchQuery.toString()
                     )
                 )
-            })
+            }
+        )
 
         etShopSearch.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {

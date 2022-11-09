@@ -23,7 +23,8 @@ class HttpLogger(private val gson: Gson) : HttpLoggingInterceptor.Logger {
                 try {
                     val prettyPrintJson = gson.toJson(JsonParser.parseString(message))
                     Timber.d(prettyPrintJson)
-                } catch (e: JsonSyntaxException) {
+                } catch (error: JsonSyntaxException) {
+                    Timber.e(error)
                     Timber.d(message)
                 }
             } else if (message.length < MAXIMUM_LOG_SIZE) {

@@ -35,7 +35,9 @@ abstract class BaseApp : Application() {
             this@BaseApp.onActivityStarted(activity)
         }
 
-        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {}
+        override fun onActivitySaveInstanceState(activity: Activity, outState: Bundle) {
+            // nothing
+        }
 
         override fun onActivityStopped(activity: Activity) {
             this@BaseApp.onActivityStopped(activity)

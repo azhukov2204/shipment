@@ -3,6 +3,7 @@ plugins {
     id 'kotlin'
     id 'org.jetbrains.kotlin.jvm'
     id 'kotlinx-serialization'
+    id "io.gitlab.arturbosch.detekt"
 }
 
 java {
@@ -15,5 +16,14 @@ dependencies {
     implementation "io.insert-koin:koin-core:$koin_version"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutines_version"
 
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
+
     implementation project(':utils:kotlin')
+}
+
+detekt {
+    toolVersion = "$detekt_version"
+    buildUponDefaultConfig = true
+    autoCorrect = true
+    config = files("$rootDir/codequality/detekt.yml")
 }

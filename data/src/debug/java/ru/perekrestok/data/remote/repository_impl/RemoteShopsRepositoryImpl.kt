@@ -28,30 +28,65 @@ internal class RemoteShopsRepositoryImpl(
         private const val APP_NAME = "WMS-NATIVE-APPLICATION"
 
         private val debugShops = buildList {
+
             Shop(
                 sapId = "SAP1",
-                name = "WMS-DEV-31",
+                name = "wms.dev92",
                 id = 1,
+                kpp = StringPatterns.EMPTY_SYMBOL,
+                inn = StringPatterns.EMPTY_SYMBOL,
+                hostName = "http://wms.dev92.services.lab.x5.ru",
+                mapPosition = MapPosition(0.0, 0.0)
+            ).addToList(this)
+            Shop(
+                sapId = "SAP2",
+                name = "wms.dev29",
+                id = 2,
+                kpp = StringPatterns.EMPTY_SYMBOL,
+                inn = StringPatterns.EMPTY_SYMBOL,
+                hostName = "http://wms.dev29.services.lab.x5.ru",
+                mapPosition = MapPosition(0.0, 0.0)
+            ).addToList(this)
+            Shop(
+                sapId = "SAP3",
+                name = "wms.dev62",
+                id = 3,
+                kpp = StringPatterns.EMPTY_SYMBOL,
+                inn = StringPatterns.EMPTY_SYMBOL,
+                hostName = "http://wms.dev62.services.lab.x5.ru",
+                mapPosition = MapPosition(0.0, 0.0)
+            ).addToList(this)
+            Shop(
+                sapId = "SAP4",
+                name = "yurov-wms",
+                id = 4,
+                kpp = StringPatterns.EMPTY_SYMBOL,
+                inn = StringPatterns.EMPTY_SYMBOL,
+                hostName = "http://v.yurov-wms.caladan01-sel.vprok.tech",
+                mapPosition = MapPosition(0.0, 0.0)
+            ).addToList(this)
+            Shop(
+                sapId = "SAP5",
+                name = "WMS-DEV-31",
+                id = 5,
                 kpp = StringPatterns.EMPTY_SYMBOL,
                 inn = StringPatterns.EMPTY_SYMBOL,
                 hostName = "http://wms.dev31.services.lab.x5.ru",
                 mapPosition = MapPosition(0.0, 0.0)
             ).addToList(this)
-
             Shop(
-                sapId = "SAP2",
+                sapId = "SAP6",
                 name = "WMS-DEV-32",
-                id = 2,
+                id = 6,
                 kpp = StringPatterns.EMPTY_SYMBOL,
                 inn = StringPatterns.EMPTY_SYMBOL,
                 hostName = "http://wms.dev32.services.lab.x5.ru",
                 mapPosition = MapPosition(0.0, 0.0)
             ).addToList(this)
-
             Shop(
-                sapId = "SAP3",
+                sapId = "SAP7",
                 name = "WMS-DEV-34",
-                id = 3,
+                id = 7,
                 kpp = StringPatterns.EMPTY_SYMBOL,
                 inn = StringPatterns.EMPTY_SYMBOL,
                 hostName = "http://wms.dev34.services.lab.x5.ru",

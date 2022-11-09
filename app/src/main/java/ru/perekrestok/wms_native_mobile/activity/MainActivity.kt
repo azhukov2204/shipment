@@ -27,7 +27,7 @@ class MainActivity : BaseActivity<MainActivityViewModel, MainActivityViewState>(
 
     private fun renderScreenOrientation(screenOrientation: Int) {
         if (requestedOrientation != screenOrientation) {
-            requestedOrientation =  screenOrientation
+            requestedOrientation = screenOrientation
         }
     }
 

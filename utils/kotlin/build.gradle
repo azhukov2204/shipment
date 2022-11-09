@@ -1,9 +1,21 @@
 plugins {
     id 'java-library'
     id 'org.jetbrains.kotlin.jvm'
+    id "io.gitlab.arturbosch.detekt"
 }
 
 java {
     sourceCompatibility = JavaVersion.VERSION_11
     targetCompatibility = JavaVersion.VERSION_11
+}
+
+dependencies {
+    detektPlugins "io.gitlab.arturbosch.detekt:detekt-formatting:$detekt_version"
+}
+
+detekt {
+    toolVersion = "$detekt_version"
+    buildUponDefaultConfig = true
+    autoCorrect = true
+    config = files("$rootDir/codequality/detekt.yml")
 }

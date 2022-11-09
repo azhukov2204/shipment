@@ -23,6 +23,7 @@ import ru.perekrestok.wms_native_mobile.screens.shipment.ShipmentSingleEvent
 import ru.perekrestok.wms_native_mobile.screens.shipment.ShipmentViewState
 import timber.log.Timber
 
+@Suppress("LongParameterList", "TooManyFunctions")
 abstract class ShipmentJSViewModel(
     private val systemActionInteractor: SystemActionInteractor,
     private val navDrawerRouter: NavDrawerRouter,
@@ -83,7 +84,6 @@ abstract class ShipmentJSViewModel(
         } else {
             currentState.customSettings.getValueByKey(key)
         }
-
     }
 
     @android.webkit.JavascriptInterface
@@ -143,7 +143,10 @@ abstract class ShipmentJSViewModel(
     @android.webkit.JavascriptInterface
     override fun sendDataToPrinter(data: String?, encoding: String?) {
         if (data.isNullOrBlank()) {
-            navDrawerRouter.showErrorSnackbar(errorText = stringResourceProvider.getStringResource(R.string.text_error_bluetooth_printer_data_is_empty))
+            navDrawerRouter.showErrorSnackbar(
+                errorText = stringResourceProvider
+                    .getStringResource(R.string.text_error_bluetooth_printer_data_is_empty)
+            )
         } else {
             viewModelScopeIO.launch {
                 deviceInteractor.printData(data, encoding).onFailure { error ->
@@ -165,7 +168,10 @@ abstract class ShipmentJSViewModel(
     @android.webkit.JavascriptInterface
     override fun sendDataLonelyToPrinter(data: String?, encoding: String?) {
         if (data.isNullOrBlank()) {
-            navDrawerRouter.showErrorSnackbar(errorText = stringResourceProvider.getStringResource(R.string.text_error_bluetooth_printer_data_is_empty))
+            navDrawerRouter.showErrorSnackbar(
+                errorText = stringResourceProvider
+                    .getStringResource(R.string.text_error_bluetooth_printer_data_is_empty)
+            )
         } else {
             viewModelScopeIO.launch {
                 deviceInteractor.printDataLonely(data, encoding).onFailure { error ->
@@ -205,7 +211,7 @@ abstract class ShipmentJSViewModel(
 
     @android.webkit.JavascriptInterface
     override fun startScanByPhoto(closeAfterScan: Boolean) {
-
+        // nothing
     }
 
     @android.webkit.JavascriptInterface
@@ -267,14 +273,17 @@ abstract class ShipmentJSViewModel(
         when (error) {
             is PrinterException.CouldNotOpenConnection -> {
                 navDrawerRouter.showErrorSnackbar(
-                    errorText = stringResourceProvider.getStringResource(R.string.text_error_on_open_printer_connection),
+                    errorText = stringResourceProvider
+                        .getStringResource(R.string.text_error_on_open_printer_connection),
                     errorDetails = error.message
                 )
             }
             PrinterException.NoPrinter -> {
                 navDrawerRouter.showErrorSnackbar(
-                    errorText = stringResourceProvider.getStringResource(R.string.text_error_bluetooth_printer_not_selected),
-                    errorDetails = stringResourceProvider.getStringResource(R.string.text_error_bluetooth_printer_not_selected_details)
+                    errorText = stringResourceProvider
+                        .getStringResource(R.string.text_error_bluetooth_printer_not_selected),
+                    errorDetails = stringResourceProvider
+                        .getStringResource(R.string.text_error_bluetooth_printer_not_selected_details)
                 )
             }
         }

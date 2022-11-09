@@ -3,8 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="124dp"
-    android:background="@drawable/bg_nav_drawer_header">
+    android:layout_height="wrap_content"
+    android:background="@drawable/bg_nav_drawer_header"
+    android:minHeight="124dp">
 
     <ImageView
         android:id="@+id/logo_iv"
