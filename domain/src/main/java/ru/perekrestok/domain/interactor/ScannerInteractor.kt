@@ -8,6 +8,11 @@ import ru.perekrestok.domain.provider.BluetoothScannerProvider
 import ru.perekrestok.domain.repository.LocalAppSettingsRepository
 import ru.perekrestok.domain.repository.RenderJSBarcodeProvider
 
+//todo Во время следующей доработки:
+// 1) Переименовать ScannerInteractor в JavaScriptCommandInteractor
+// 2) Вынести методы работы со сканером в DeviceInteractor
+// 3) Если DeviceInteractor начнет превращаться в GodObj - разбить его на несколько (например, на Printer.., Scanner..)
+// 4) Пробежаться по сущностям, при необходимости выполнить небольшой рефакторинг
 interface ScannerInteractor {
     val scanResultFlow: Flow<String>
     fun getRenderBarcodeJs(barcode: String, scanMode: ScanMode): String
