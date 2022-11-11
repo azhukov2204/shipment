@@ -4,6 +4,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import ru.perekrestok.wms_native_mobile.activity.MainActivityViewModel
 import ru.perekrestok.wms_native_mobile.screens.nav_drawer_container.NavDrawerViewModel
+import ru.perekrestok.wms_native_mobile.screens.search_device.SearchDeviceViewModel
 import ru.perekrestok.wms_native_mobile.screens.settings.SettingsViewModel
 import ru.perekrestok.wms_native_mobile.screens.shipment.ShipmentViewModel
 import ru.perekrestok.wms_native_mobile.screens.shops.ShopsViewModel
@@ -41,7 +42,7 @@ internal val viewModelModule = module {
             deviceInteractor = get(),
             wireInteractor = get(),
             webViewOptionInteractor = get(),
-            scannerInteractor = get(),
+            javaScriptCommandInteractor = get(),
             systemActionInteractor = get(),
             navDrawerRouter = get(),
             stringResourceProvider = get()
@@ -63,11 +64,20 @@ internal val viewModelModule = module {
             stringResourceProvider = get(),
             settingsInteractor = get(),
             adminModeInteractor = get(),
-            deviceInteractor = get(),
             screenOrientationInteractor = get(),
             webViewOptionInteractor = get(),
             wireInteractor = get(),
             systemActionInteractor = get()
+        )
+    }
+
+    viewModel { parameters ->
+        SearchDeviceViewModel(
+            deviceType = parameters.component1(),
+            deviceInteractor = get(),
+            stringResourceProvider = get(),
+            mainActivityRouter = get(),
+            settingsInteractor = get()
         )
     }
 }

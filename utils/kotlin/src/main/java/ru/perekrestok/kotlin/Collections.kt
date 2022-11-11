@@ -2,6 +2,8 @@ package ru.perekrestok.kotlin
 
 fun <T> T.asList(): List<T> = listOf(this)
 
+fun <T> T.asSet(): Set<T> = setOf(this)
+
 inline fun <T> Collection<T>.ifNotEmpty(action: () -> Unit) {
     if (isNotEmpty()) {
         action()

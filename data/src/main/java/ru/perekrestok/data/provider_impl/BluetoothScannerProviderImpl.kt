@@ -76,7 +76,7 @@ internal class BluetoothScannerProviderImpl(
 
     override suspend fun sync() {
         if (scannerConnectionStateFlow.value != DeviceConnectionState.CONNECTED &&
-            !mutex.isLocked
+            !mutex.isLocked && !bluetoothAdapter.isDiscovering
         ) {
             establishConnectionSafely()
         }

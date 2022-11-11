@@ -1,12 +1,20 @@
 package ru.perekrestok.data.provider_impl
 
 import android.bluetooth.BluetoothAdapter
+import android.bluetooth.BluetoothDevice
+import android.content.BroadcastReceiver
 import android.content.Context
+import android.content.Intent
+import android.content.IntentFilter
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.asSharedFlow
 import ru.perekrestok.android.extension.bluetoothManager
 import ru.perekrestok.domain.entity.Device
 import ru.perekrestok.domain.exception.BluetoothDeviceException
 import ru.perekrestok.domain.provider.BluetoothDeviceProvider
+import ru.perekrestok.kotlin.asSet
 
 internal class BluetoothDeviceProviderImpl(
     private val context: Context
@@ -15,6 +23,7 @@ internal class BluetoothDeviceProviderImpl(
     companion object {
         private const val TRY_BLUETOOTH_ENABLE_MAX_ATTEMPTS = 10
         private const val TRY_BLUETOOTH_ENABLE_DELAY = 1000L
+        private const val FLOW_EXTRA_BUFFER_CAPACITY = 1
     }
 
     private val bluetoothAdapter: BluetoothAdapter?
@@ -23,20 +32,58 @@ internal class BluetoothDeviceProviderImpl(
     private val isBluetoothEnabled: Boolean
         get() = bluetoothAdapter?.isEnabled == true
 
-    override suspend fun getBondedDevices(): List<Device> {
-        tryEnableBluetooth()
-        val devices = bluetoothAdapter?.bondedDevices?.map { bluetoothDevice ->
-            Device(
-                name = bluetoothDevice.name,
-                address = bluetoothDevice.address
-            )
+    private val _searchDevicesMutableFlow: MutableSharedFlow<Set<Device>> =
+        MutableSharedFlow(extraBufferCapacity = FLOW_EXTRA_BUFFER_CAPACITY)
+
+    override val searchDevicesFlow: Flow<Set<Device>> = _searchDevicesMutableFlow.asSharedFlow()
+
+    private val searchDeviceReceiver: BroadcastReceiver =
+        object : BroadcastReceiver() {
+            override fun onReceive(context: Context?, intent: Intent) {
+                when (intent.action) {
+                    BluetoothDevice.ACTION_FOUND -> {
+                        val device = intent.getParcelableExtra<BluetoothDevice>(BluetoothDevice.EXTRA_DEVICE)
+                        val deviseSet = device?.takeIf { it.name != null }
+                            ?.let { device.toDomain() }
+                            ?.asSet()
+                        deviseSet?.let { _searchDevicesMutableFlow.tryEmit(deviseSet) }
+                    }
+                    BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
+                        println("!!! discovery finished")
+                        restartSearchDevices()
+                    }
+                    BluetoothAdapter.ACTION_DISCOVERY_STARTED -> {
+                        println("!!! discovery started")
+                    }
+                }
+            }
         }
 
-        return if (devices != null && devices.isNotEmpty()) {
-            devices
-        } else {
-            throw BluetoothDeviceException.EmptyDevicesList
-        }
+    override suspend fun startSearchDevices() {
+        tryEnableBluetooth()
+        val bondedDevices = bluetoothAdapter?.bondedDevices?.map { bluetoothDevice ->
+            bluetoothDevice.toDomain()
+        }?.toSet()
+        bondedDevices?.let { _searchDevicesMutableFlow.emit(bondedDevices) }
+
+        val filterFound = IntentFilter(BluetoothDevice.ACTION_FOUND)
+        val filterDiscoveryFinished = IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)
+        val filterDiscoveryStarted = IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_STARTED)
+
+        context.registerReceiver(searchDeviceReceiver, filterFound)
+        context.registerReceiver(searchDeviceReceiver, filterDiscoveryFinished)
+        context.registerReceiver(searchDeviceReceiver, filterDiscoveryStarted)
+        bluetoothAdapter?.startDiscovery()
+    }
+
+    fun restartSearchDevices() {
+        bluetoothAdapter?.startDiscovery()
+    }
+
+    override suspend fun stopSearchDevices() {
+        println("!!! stopSearchDevices")
+        bluetoothAdapter?.cancelDiscovery()
+        context.unregisterReceiver(searchDeviceReceiver)
     }
 
     @Suppress("UnusedPrivateMember")
@@ -51,5 +98,12 @@ internal class BluetoothDeviceProviderImpl(
         }
 
         if (!isBluetoothEnabled) throw BluetoothDeviceException.FailedToEnable
+    }
+
+    private fun BluetoothDevice.toDomain(): Device {
+        return Device(
+            name = name,
+            address = address
+        )
     }
 }

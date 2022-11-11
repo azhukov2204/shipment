@@ -24,9 +24,7 @@ import ru.perekrestok.wms_native_mobile.screens.WEB_VIEW_CACHE_MODES
 
 data class SettingsViewState(
     private val stringResourceProvider: StringResourceProvider,
-    val appSettings: List<AppSetting<*>> = emptyList(),
-    val printerDevices: List<Device> = emptyList(),
-    val scannerDevices: List<Device> = emptyList()
+    val appSettings: List<AppSetting<*>> = emptyList()
 ) {
     private val currentShop: Shop? = appSettings.getCurrentShop()
     private val screenOrientation: Int = appSettings.getScreenOrientation()
@@ -34,10 +32,10 @@ data class SettingsViewState(
     val isAdminModeEnabled: Boolean = appSettings.getIsAdminMode()
     val isCookiesAllowed: Boolean = appSettings.getIsCookiesAllowed()
     val isCacheAllowed: Boolean = appSettings.getIsCacheAllowed()
-    val currentPrinter: Device? = appSettings.getSelectedPrinter()
-    val currentScanner: Device? = appSettings.getSelectedScanner()
+    private val currentPrinter: Device? = appSettings.getSelectedPrinter()
+    private val currentScanner: Device? = appSettings.getSelectedScanner()
     val customUrl: String = appSettings.getCustomEndpoint().orEmpty()
-    val scanMode: ScanMode = appSettings.getScanMode()
+    private val scanMode: ScanMode = appSettings.getScanMode()
 
     val scanModeDescription: String = getScanModeDescription(scanMode)
 
@@ -101,8 +99,6 @@ data class SettingsViewState(
 
 sealed interface SettingsDataEvent : DataEvent {
     data class OnSettingsReceived(val appSettings: List<AppSetting<*>>) : SettingsDataEvent
-    data class OnPrinterDevicesReceived(val printerDevices: List<Device>) : SettingsDataEvent
-    data class OnScannerDevicesReceived(val scannerDevices: List<Device>) : SettingsDataEvent
 }
 
 sealed interface SettingsUiEvent : UiEvent {

@@ -3,21 +3,15 @@ package ru.perekrestok.wms_native_mobile.screens.settings
 import android.text.InputType
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
 import ru.perekrestok.android.dialogs.alert.AlertDialogScreen
 import ru.perekrestok.android.dialogs.edit_text.EditTextDialogScreen
 import ru.perekrestok.android.dialogs.list.ListDialogScreen
-import ru.perekrestok.android.dialogs.list.delegate.ListDialogItem
 import ru.perekrestok.android.dialogs.list.delegate.ListDialogItems
-import ru.perekrestok.android.dialogs.waiting.WaitingDialogScreen
 import ru.perekrestok.android.view_model.BaseViewModel
 import ru.perekrestok.android.view_model.event.Event
-import ru.perekrestok.domain.entity.Device
 import ru.perekrestok.domain.exception.AdminModeException
-import ru.perekrestok.domain.exception.BluetoothDeviceException
 import ru.perekrestok.domain.interactor.AdminModeInteractor
-import ru.perekrestok.domain.interactor.DeviceInteractor
 import ru.perekrestok.domain.interactor.ScreenOrientationInteractor
 import ru.perekrestok.domain.interactor.SettingsInteractor
 import ru.perekrestok.domain.interactor.SystemActionInteractor
@@ -28,6 +22,8 @@ import ru.perekrestok.domain.provider.StringResourceProvider
 import ru.perekrestok.wms_native_mobile.R
 import ru.perekrestok.wms_native_mobile.activity.MainActivityRouter
 import ru.perekrestok.wms_native_mobile.screens.nav_drawer_container.NavDrawerRouter
+import ru.perekrestok.wms_native_mobile.screens.search_device.DeviceType
+import ru.perekrestok.wms_native_mobile.screens.search_device.SearchDeviceScreen
 import ru.perekrestok.wms_native_mobile.screens.shops.ShopsFragment
 import ru.perekrestok.wms_native_mobile.screens.shops.ShopsScreen
 import timber.log.Timber
@@ -39,7 +35,6 @@ class SettingsViewModel(
     private val stringResourceProvider: StringResourceProvider,
     private val adminModeInteractor: AdminModeInteractor,
     private val settingsInteractor: SettingsInteractor,
-    private val deviceInteractor: DeviceInteractor,
     private val screenOrientationInteractor: ScreenOrientationInteractor,
     private val webViewOptionInteractor: WebViewOptionInteractor,
     private val wireInteractor: WireInteractor,
@@ -53,8 +48,6 @@ class SettingsViewModel(
             }
         }
     }
-
-    private var currentJob: Job? = null
 
     override fun initialViewState(): SettingsViewState =
         SettingsViewState(stringResourceProvider = stringResourceProvider)
@@ -70,10 +63,6 @@ class SettingsViewModel(
         currentState: SettingsViewState
     ): SettingsViewState = when (event) {
         is SettingsDataEvent.OnSettingsReceived -> currentState.copy(appSettings = event.appSettings)
-        is SettingsDataEvent.OnPrinterDevicesReceived -> currentState.copy(printerDevices = event.printerDevices)
-            .also { handleOnPrinterDevicesReceived(event, currentState) }
-        is SettingsDataEvent.OnScannerDevicesReceived -> currentState.copy(scannerDevices = event.scannerDevices)
-            .also { handleOnScannerDevicesReceived(event, currentState) }
     }
 
     @Suppress("ComplexMethod")
@@ -183,15 +172,11 @@ class SettingsViewModel(
     }
 
     private fun handleOnSelectPrinterItemClicked() {
-        searchDevices { printerDevices ->
-            processDataEvent(SettingsDataEvent.OnPrinterDevicesReceived(printerDevices))
-        }
+        mainActivityRouter.navigateTo(SearchDeviceScreen(DeviceType.PRINTER))
     }
 
     private fun handleOnSelectScannerItemClicked() {
-        searchDevices { scannerDevices ->
-            processDataEvent(SettingsDataEvent.OnScannerDevicesReceived(scannerDevices))
-        }
+        mainActivityRouter.navigateTo(SearchDeviceScreen(DeviceType.SCANNER))
     }
 
     private fun handleOnScanModeItemClicked(currentState: SettingsViewState) {
@@ -208,69 +193,6 @@ class SettingsViewModel(
 
     private fun handleSelectScanMode(scanModeId: Int) = viewModelScopeIO.launch {
         webViewOptionInteractor.saveScanMode(scanModeId)
-    }
-
-    private fun searchDevices(onDevicesFounded: (List<Device>) -> Unit) {
-        showSearchDevicesWaitingDialog()
-        launchInJob {
-            deviceInteractor.getBoundedDevices().fold(
-                onSuccess = { devices ->
-                    onDevicesFounded(devices)
-                },
-                onFailure = { error ->
-                    if (error is BluetoothDeviceException) {
-                        handleBluetoothDeviceException(error)
-                    } else {
-                        handleBasicException(error)
-                    }
-                }
-            )
-            navDrawerRouter.dismissAllDialogs()
-        }
-    }
-
-    private fun showSearchDevicesWaitingDialog() {
-        navDrawerRouter.addTo(
-            WaitingDialogScreen(
-                message = stringResourceProvider.getStringResource(R.string.text_dialog_loading_bluetooth_devices),
-                closeButtonText = stringResourceProvider.getStringResource(R.string.text_close),
-                onCancelAction = { cancelCurrentJob() }
-            )
-        )
-    }
-
-    private fun handleOnPrinterDevicesReceived(
-        event: SettingsDataEvent.OnPrinterDevicesReceived,
-        currentState: SettingsViewState
-    ) {
-        val printerDevices = event.printerDevices
-        val listDialogItems = printerDevices.toListDialogItems(currentState.currentPrinter)
-        navDrawerRouter.addTo(
-            ListDialogScreen(
-                title = stringResourceProvider.getStringResource(R.string.text_printer),
-                listDialogItems = ListDialogItems(listDialogItems),
-                onItemClicked = { itemHashCode ->
-                    handleSelectPrinterDevice(printerDevices, itemHashCode)
-                }
-            )
-        )
-    }
-
-    private fun handleOnScannerDevicesReceived(
-        event: SettingsDataEvent.OnScannerDevicesReceived,
-        currentState: SettingsViewState
-    ) {
-        val scannerDevices = event.scannerDevices
-        val listDialogItems = scannerDevices.toListDialogItems(currentState.currentScanner)
-        navDrawerRouter.addTo(
-            ListDialogScreen(
-                title = stringResourceProvider.getStringResource(R.string.text_scanner),
-                listDialogItems = ListDialogItems(listDialogItems),
-                onItemClicked = { itemHashCode ->
-                    handleSelectScannerDevice(scannerDevices, itemHashCode)
-                }
-            )
-        )
     }
 
     private fun handleOnSelectOrientationItemClicked(currentState: SettingsViewState) {
@@ -324,46 +246,25 @@ class SettingsViewModel(
             onSuccess = {
                 navDrawerRouter.showSnackBar(stringResourceProvider.getStringResource(R.string.text_admin_mode_enabled))
             },
-            onFailure = { error ->
-                if (error is AdminModeException) {
-                    handleAdminModeException(error)
-                } else {
-                    handleBasicException(error)
-                }
-            }
+            onFailure = { error -> handleError(error) }
         )
     }
 
     private fun resetAdminMode() = viewModelScopeIO.launch {
-        adminModeInteractor.resetAdminMode().onFailure(::handleBasicException)
+        adminModeInteractor.resetAdminMode().onFailure(::handleError)
     }
 
-    private fun handleSelectPrinterDevice(printerDevices: List<Device>, itemHashCode: Int) = viewModelScopeIO.launch {
-        findDeviceByHashCode(printerDevices, itemHashCode)
-            ?.let { printerDevice -> deviceInteractor.setSelectedPrinter(printerDevice) }
-            ?: run { deviceInteractor.deletePrinter() }
-    }
-
-    private fun handleSelectScannerDevice(scannerDevices: List<Device>, itemHashCode: Int) = viewModelScopeIO.launch {
-        findDeviceByHashCode(scannerDevices, itemHashCode)
-            ?.let { scannerDevice -> deviceInteractor.setSelectedScanner(scannerDevice) }
-            ?: run { deviceInteractor.deleteScanner() }
+    private fun handleError(error: Throwable) {
+        when (error) {
+            is AdminModeException -> handleAdminModeException(error)
+            else -> handleBasicException(error)
+        }
     }
 
     private fun handleAdminModeException(error: AdminModeException) {
         val errorMessageResourceId = when (error) {
             AdminModeException.PasswordEmpty -> R.string.text_error_password_empty
             AdminModeException.PasswordWrong -> R.string.text_error_password_wrong
-        }
-        navDrawerRouter.showErrorSnackbar(
-            errorText = stringResourceProvider.getStringResource(errorMessageResourceId)
-        )
-    }
-
-    private fun handleBluetoothDeviceException(error: BluetoothDeviceException) {
-        val errorMessageResourceId = when (error) {
-            BluetoothDeviceException.EmptyDevicesList -> R.string.text_error_bluetooth_device_not_found
-            BluetoothDeviceException.FailedToEnable -> R.string.text_error_enable_bluetooth
         }
         navDrawerRouter.showErrorSnackbar(
             errorText = stringResourceProvider.getStringResource(errorMessageResourceId)
@@ -377,45 +278,6 @@ class SettingsViewModel(
                 errorText = error.message.orEmpty(),
                 errorDetails = error.cause?.message.orEmpty()
             )
-        }
-    }
-
-    private fun launchInJob(action: suspend () -> Unit) {
-        cancelCurrentJob()
-        currentJob = viewModelScopeIO.launch {
-            action()
-        }
-    }
-
-    private fun cancelCurrentJob() {
-        currentJob?.cancel()
-        currentJob = null
-    }
-
-    private fun List<Device>.toListDialogItems(currentDevice: Device?): List<ListDialogItem> {
-        val listDialogItems = map { device ->
-            ListDialogItem(
-                id = device.hashCode(),
-                name = device.name,
-                isSelected = device == currentDevice
-            )
-        }
-
-        return buildList {
-            add(
-                ListDialogItem(
-                    id = -1,
-                    name = stringResourceProvider.getStringResource(R.string.text_not_selected),
-                    isSelected = currentDevice == null
-                )
-            )
-            addAll(listDialogItems)
-        }
-    }
-
-    private fun findDeviceByHashCode(devices: List<Device>, hashCode: Int): Device? {
-        return devices.find { device ->
-            device.hashCode() == hashCode
         }
     }
 

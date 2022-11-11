@@ -10,7 +10,6 @@ import ru.perekrestok.domain.entity.CustomSetting.Companion.getValueByKey
 import ru.perekrestok.domain.exception.BluetoothDeviceException
 import ru.perekrestok.domain.exception.PrinterException
 import ru.perekrestok.domain.interactor.DeviceInteractor
-import ru.perekrestok.domain.interactor.ScannerInteractor
 import ru.perekrestok.domain.interactor.SettingsInteractor
 import ru.perekrestok.domain.interactor.SystemActionInteractor
 import ru.perekrestok.domain.interactor.WebViewOptionInteractor
@@ -30,8 +29,7 @@ abstract class ShipmentJSViewModel(
     private val settingsInteractor: SettingsInteractor,
     private val deviceInteractor: DeviceInteractor,
     private val stringResourceProvider: StringResourceProvider,
-    private val webViewOptionInteractor: WebViewOptionInteractor,
-    private val scannerInteractor: ScannerInteractor
+    private val webViewOptionInteractor: WebViewOptionInteractor
 ) : BaseViewModel<ShipmentViewState>(), ShipmentJS {
 
     companion object {
@@ -130,13 +128,7 @@ abstract class ShipmentJSViewModel(
     @android.webkit.JavascriptInterface
     override fun connectToPrinter() {
         viewModelScopeIO.launch {
-            deviceInteractor.connectToPrinter().onFailure { error ->
-                when (error) {
-                    is BluetoothDeviceException -> handleBluetoothDeviceException(error)
-                    is PrinterException -> handlePrinterException(error)
-                    else -> handleBasicException(error)
-                }
-            }
+            deviceInteractor.connectToPrinter().onFailure { error -> handleError(error) }
         }
     }
 
@@ -150,7 +142,7 @@ abstract class ShipmentJSViewModel(
         } else {
             viewModelScopeIO.launch {
                 deviceInteractor.printData(data, encoding).onFailure { error ->
-                    handleBasicException(error)
+                    handleError(error)
                 }
             }
         }
@@ -160,7 +152,7 @@ abstract class ShipmentJSViewModel(
     override fun disconnectFromPrinter() {
         viewModelScopeIO.launch {
             deviceInteractor.disconnectFromPrinter().onFailure { error ->
-                handleBasicException(error)
+                handleError(error)
             }
         }
     }
@@ -175,7 +167,7 @@ abstract class ShipmentJSViewModel(
         } else {
             viewModelScopeIO.launch {
                 deviceInteractor.printDataLonely(data, encoding).onFailure { error ->
-                    handleBasicException(error)
+                    handleError(error)
                 }
             }
         }
@@ -205,7 +197,7 @@ abstract class ShipmentJSViewModel(
     @android.webkit.JavascriptInterface
     override fun setInternalScannerEnabled(isEnabled: Boolean) {
         viewModelScopeIO.launch {
-            scannerInteractor.setIsInternalScannerEnabled(isEnabled)
+            deviceInteractor.setIsInternalScannerEnabled(isEnabled)
         }
     }
 
@@ -259,9 +251,16 @@ abstract class ShipmentJSViewModel(
         processSingleEvent(ShipmentSingleEvent.SetEnabledSwipeToRefresh(isEnabled))
     }
 
+    private fun handleError(error: Throwable) {
+        when (error) {
+            is BluetoothDeviceException -> handleBluetoothDeviceException(error)
+            is PrinterException -> handlePrinterException(error)
+            else -> handleBasicException(error)
+        }
+    }
+
     private fun handleBluetoothDeviceException(error: BluetoothDeviceException) {
         val errorMessageResourceId = when (error) {
-            BluetoothDeviceException.EmptyDevicesList -> R.string.text_error_bluetooth_device_not_found
             BluetoothDeviceException.FailedToEnable -> R.string.text_error_enable_bluetooth
         }
         navDrawerRouter.showErrorSnackbar(

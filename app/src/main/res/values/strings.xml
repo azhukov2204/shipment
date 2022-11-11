@@ -21,7 +21,7 @@
     <string name="text_printer">Принтер</string>
     <string name="text_dialog_loading_bluetooth_devices">Поиск Bluetooth-устройств</string>
     <string name="text_close">Закрыть</string>
-    <string name="text_error_bluetooth_device_not_found">Устройства не найдены</string>
+    <string name="text_error_bluetooth_device_not_found">Новые устройства не найдены</string>
     <string name="text_error_enable_bluetooth">Не удалось включить Bluetooth!</string>
     <string name="text_not_selected">Не выбран</string>
     <string name="text_scanner">Сканер</string>
@@ -47,4 +47,8 @@
     <string name="text_version">Версия: %s [%s]\n</string>
     <string name="text_install_date">Дата установки: %s\n</string>
     <string name="text_init_date">Дата инициализации: %s\n</string>
+    <string name="text_search_device_in_progress">Осуществляется обнаружение bluetooth-устройств. Выберите устройство из списка</string>
+    <string name="text_current_printer">Текущий принтер: \n%s</string>
+    <string name="text_current_scanner">Текущий сканер: \n%s</string>
+    <string name="error_message">Ошибка: %s</string>
 </resources>
