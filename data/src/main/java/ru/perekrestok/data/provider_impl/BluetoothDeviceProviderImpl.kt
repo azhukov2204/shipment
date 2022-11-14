@@ -49,11 +49,7 @@ internal class BluetoothDeviceProviderImpl(
                         deviseSet?.let { _searchDevicesMutableFlow.tryEmit(deviseSet) }
                     }
                     BluetoothAdapter.ACTION_DISCOVERY_FINISHED -> {
-                        println("!!! discovery finished")
                         restartSearchDevices()
-                    }
-                    BluetoothAdapter.ACTION_DISCOVERY_STARTED -> {
-                        println("!!! discovery started")
                     }
                 }
             }
@@ -68,11 +64,9 @@ internal class BluetoothDeviceProviderImpl(
 
         val filterFound = IntentFilter(BluetoothDevice.ACTION_FOUND)
         val filterDiscoveryFinished = IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_FINISHED)
-        val filterDiscoveryStarted = IntentFilter(BluetoothAdapter.ACTION_DISCOVERY_STARTED)
 
         context.registerReceiver(searchDeviceReceiver, filterFound)
         context.registerReceiver(searchDeviceReceiver, filterDiscoveryFinished)
-        context.registerReceiver(searchDeviceReceiver, filterDiscoveryStarted)
         bluetoothAdapter?.startDiscovery()
     }
 
@@ -81,7 +75,6 @@ internal class BluetoothDeviceProviderImpl(
     }
 
     override suspend fun stopSearchDevices() {
-        println("!!! stopSearchDevices")
         bluetoothAdapter?.cancelDiscovery()
         context.unregisterReceiver(searchDeviceReceiver)
     }
