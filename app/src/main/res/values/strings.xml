@@ -23,6 +23,7 @@
     <string name="text_close">Закрыть</string>
     <string name="text_error_bluetooth_device_not_found">Новые устройства не найдены</string>
     <string name="text_error_enable_bluetooth">Не удалось включить Bluetooth!</string>
+    <string name="text_error_search_devices_no_granted">В приложении не выдано разрешение на поиск устройств. Подтвердите разрешение при запуске приложения, либо в настройках устройства</string>
     <string name="text_not_selected">Не выбран</string>
     <string name="text_scanner">Сканер</string>
     <string name="text_scan_mode">Режим сканирования</string>
