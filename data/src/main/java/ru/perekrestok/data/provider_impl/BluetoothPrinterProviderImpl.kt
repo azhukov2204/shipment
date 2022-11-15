@@ -48,6 +48,9 @@ class BluetoothPrinterProviderImpl(
 
     override suspend fun connect(): Unit = mutex.withLock {
         try {
+            if (bluetoothAdapter.isDiscovering) {
+                bluetoothDeviceProvider.stopSearchDevices()
+            }
             val currentPrinterSetting = settingsRepository.getSettings().getSelectedPrinter()
             if (currentPrinterSetting != null) {
                 _printerConnectionMutableStateFlow.emit(DeviceConnectionState.CONNECTING)
