@@ -12,7 +12,7 @@ android {
         applicationId "ru.perekrestok.wms_native_mobile"
         minSdk 23
         targetSdk 32
-        versionCode 4
+        versionCode 5
         versionName "2.0.1"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
