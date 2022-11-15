@@ -74,8 +74,17 @@ class ShipmentViewModel(
 
     override suspend fun reduce(event: Event, currentState: ShipmentViewState): ShipmentViewState = when (event) {
         OnButtonBackClicked -> currentState.also { handleOnButtonBackClicked() }
+        is LifecycleEvent -> dispatchLifecycleEvent(event, currentState)
         is ShipmentDataEvent -> dispatchShipmentDataEvent(event, currentState)
         is ShipmentUiEvent -> dispatchShipmentUiEvent(event, currentState)
+        else -> currentState
+    }
+
+    private fun dispatchLifecycleEvent(
+        event: LifecycleEvent,
+        currentState: ShipmentViewState
+    ): ShipmentViewState = when (event) {
+        LifecycleEvent.OnLifecycleOwnerCreate -> currentState.copy(isPageLoaded = false)
         else -> currentState
     }
 
