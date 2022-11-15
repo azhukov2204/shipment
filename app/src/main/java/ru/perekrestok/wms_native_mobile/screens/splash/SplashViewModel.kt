@@ -19,19 +19,18 @@ class SplashViewModel(
     override fun initialViewState(): SplashViewState = SplashViewState()
 
     override suspend fun reduce(event: Event, currentState: SplashViewState): SplashViewState = when (event) {
-        is LifecycleEvent -> dispatchLifecycleEvent(event, currentState)
+        is SplashUiEvent -> dispatchSplashUiEvent(event, currentState)
         else -> currentState
     }
 
-    private fun dispatchLifecycleEvent(event: LifecycleEvent, currentState: SplashViewState): SplashViewState =
+    private fun dispatchSplashUiEvent(event: SplashUiEvent, currentState: SplashViewState): SplashViewState =
         when (event) {
-            LifecycleEvent.OnLifecycleOwnerCreate -> currentState.also {
-                handleOnLifecycleOwnerCreate()
+            SplashUiEvent.OnPermissionsChecked -> currentState.also {
+                handleOnPermissionsChecked()
             }
-            else -> currentState
         }
 
-    private fun handleOnLifecycleOwnerCreate() = viewModelScopeIO.launch {
+    private fun handleOnPermissionsChecked() = viewModelScopeIO.launch {
         initAppInteractor.checkInitDate()
 
         val targetScreen = if (shopsInteractor.getCurrentShop() == null) {

@@ -5,4 +5,8 @@
     <string name="text_cancel">Отменить</string>
     <string name="text_yes">Да</string>
     <string name="text_no">Нет</string>
+    <string name="text_ok">Ок</string>
+    <string name="text_attention">Внимание</string>
+    <string name="text_permissions_rationales">Для корректной работы приложения необходимо подтвердить все разрешения.</string>
+    <string name="text_permissions_explain">Вы не подтвердили некоторые разрешения. Данные разрешения нужны для корректной работы приложения. Подтвердите эти разрешения при следующем запуске приложения, либо в настройках устройства.</string>
 </resources>

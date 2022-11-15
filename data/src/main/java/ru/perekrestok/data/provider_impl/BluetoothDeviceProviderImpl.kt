@@ -1,5 +1,6 @@
 package ru.perekrestok.data.provider_impl
 
+import android.Manifest
 import android.bluetooth.BluetoothAdapter
 import android.bluetooth.BluetoothDevice
 import android.content.BroadcastReceiver
@@ -10,6 +11,7 @@ import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import ru.perekrestok.android.extension.arePermissionsGranted
 import ru.perekrestok.android.extension.bluetoothManager
 import ru.perekrestok.domain.entity.Device
 import ru.perekrestok.domain.exception.BluetoothDeviceException
@@ -56,6 +58,7 @@ internal class BluetoothDeviceProviderImpl(
         }
 
     override suspend fun startSearchDevices() {
+        checkSearchDevicesPermission()
         tryEnableBluetooth()
         val bondedDevices = bluetoothAdapter?.bondedDevices?.map { bluetoothDevice ->
             bluetoothDevice.toDomain()
@@ -91,6 +94,13 @@ internal class BluetoothDeviceProviderImpl(
         }
 
         if (!isBluetoothEnabled) throw BluetoothDeviceException.FailedToEnable
+    }
+
+    private fun checkSearchDevicesPermission() {
+        val isGranted = context.arePermissionsGranted(Manifest.permission.ACCESS_FINE_LOCATION)
+        if (isGranted.not()) {
+            throw BluetoothDeviceException.SearchDeviceNotGranted
+        }
     }
 
     private fun BluetoothDevice.toDomain(): Device {

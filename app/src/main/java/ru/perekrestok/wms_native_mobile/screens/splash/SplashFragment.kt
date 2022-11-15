@@ -2,9 +2,9 @@ package ru.perekrestok.wms_native_mobile.screens.splash
 
 import android.Manifest
 import android.view.animation.AnimationUtils
-import androidx.activity.result.contract.ActivityResultContracts
 import by.kirich1409.viewbindingdelegate.viewBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import ru.perekrestok.android.extension.checkPermissions
 import ru.perekrestok.android.fragment.BaseFragment
 import ru.perekrestok.wms_native_mobile.R
 import ru.perekrestok.wms_native_mobile.databinding.FragmentSplashBinding
@@ -19,16 +19,16 @@ class SplashFragment : BaseFragment<SplashViewModel, SplashViewState>(R.layout.f
 
     private val binding: FragmentSplashBinding by viewBinding(FragmentSplashBinding::bind)
 
-    private val permissionResultLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) {}
-
     override fun setupUI() {
         startLogoAnimation()
-        permissionResultLauncher.launch(
-            arrayOf(
+        checkPermissions(
+            permissions = arrayOf(
                 Manifest.permission.READ_PHONE_STATE,
                 Manifest.permission.ACCESS_FINE_LOCATION
-            )
+            ),
+            onPermissionChecked = {
+                viewModel.processUiEvent(SplashUiEvent.OnPermissionsChecked)
+            }
         )
     }
 

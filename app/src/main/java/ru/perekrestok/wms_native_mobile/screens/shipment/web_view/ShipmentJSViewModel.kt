@@ -262,6 +262,7 @@ abstract class ShipmentJSViewModel(
     private fun handleBluetoothDeviceException(error: BluetoothDeviceException) {
         val errorMessageResourceId = when (error) {
             BluetoothDeviceException.FailedToEnable -> R.string.text_error_enable_bluetooth
+            BluetoothDeviceException.SearchDeviceNotGranted -> R.string.text_error_search_devices_no_granted
         }
         navDrawerRouter.showErrorSnackbar(
             errorText = stringResourceProvider.getStringResource(errorMessageResourceId)

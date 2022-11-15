@@ -111,10 +111,11 @@ class SearchDeviceViewModel(
     }
 
     private fun getBluetoothDeviceExceptionMessage(error: BluetoothDeviceException): String {
-        return when (error) {
-            BluetoothDeviceException.FailedToEnable ->
-                stringResourceProvider.getStringResource(R.string.text_error_enable_bluetooth)
+        val errorTestResId = when (error) {
+            BluetoothDeviceException.FailedToEnable -> R.string.text_error_enable_bluetooth
+            BluetoothDeviceException.SearchDeviceNotGranted -> R.string.text_error_search_devices_no_granted
         }
+        return stringResourceProvider.getStringResource(errorTestResId)
     }
 
     private fun handleOnDeviceItemClicked(
