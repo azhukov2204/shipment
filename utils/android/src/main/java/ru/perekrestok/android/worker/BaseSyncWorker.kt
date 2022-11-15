@@ -48,7 +48,7 @@ abstract class BaseSyncWorker<T> : SyncWorker {
         if (job?.isActive == true) {
             stop()
         }
-        job = scope.launch(Dispatchers.Default) {
+        job = scope.launch(Dispatchers.IO) {
             while (isActive) {
                 if (canSync()) {
                     sync()

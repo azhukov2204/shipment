@@ -5,7 +5,7 @@ import ru.perekrestok.android.view_model.event.Event
 import ru.perekrestok.android.view_model.event.OnButtonBackClicked
 import ru.perekrestok.domain.entity.ScanMode
 import ru.perekrestok.domain.interactor.DeviceInteractor
-import ru.perekrestok.domain.interactor.ScannerInteractor
+import ru.perekrestok.domain.interactor.JavaScriptCommandInteractor
 import ru.perekrestok.domain.interactor.SettingsInteractor
 import ru.perekrestok.domain.interactor.SystemActionInteractor
 import ru.perekrestok.domain.interactor.WebViewOptionInteractor
@@ -20,7 +20,7 @@ class ShipmentViewModel(
     private val settingsInteractor: SettingsInteractor,
     private val deviceInteractor: DeviceInteractor,
     private val wireInteractor: WireInteractor,
-    private val scannerInteractor: ScannerInteractor,
+    private val javaScriptCommandInteractor: JavaScriptCommandInteractor,
     webViewOptionInteractor: WebViewOptionInteractor,
     systemActionInteractor: SystemActionInteractor,
     navDrawerRouter: NavDrawerRouter,
@@ -31,8 +31,7 @@ class ShipmentViewModel(
     settingsInteractor = settingsInteractor,
     deviceInteractor = deviceInteractor,
     stringResourceProvider = stringResourceProvider,
-    webViewOptionInteractor = webViewOptionInteractor,
-    scannerInteractor = scannerInteractor
+    webViewOptionInteractor = webViewOptionInteractor
 ) {
 
     init {
@@ -61,7 +60,7 @@ class ShipmentViewModel(
         }
 
         viewModelScopeIO.launch {
-            scannerInteractor.scanResultFlow.collect { barcode ->
+            deviceInteractor.scanResultFlow.collect { barcode ->
                 processDataEvent(ShipmentDataEvent.OnBarcodeReceived(barcode))
             }
         }
@@ -75,8 +74,17 @@ class ShipmentViewModel(
 
     override suspend fun reduce(event: Event, currentState: ShipmentViewState): ShipmentViewState = when (event) {
         OnButtonBackClicked -> currentState.also { handleOnButtonBackClicked() }
+        is LifecycleEvent -> dispatchLifecycleEvent(event, currentState)
         is ShipmentDataEvent -> dispatchShipmentDataEvent(event, currentState)
         is ShipmentUiEvent -> dispatchShipmentUiEvent(event, currentState)
+        else -> currentState
+    }
+
+    private fun dispatchLifecycleEvent(
+        event: LifecycleEvent,
+        currentState: ShipmentViewState
+    ): ShipmentViewState = when (event) {
+        LifecycleEvent.OnLifecycleOwnerCreate -> currentState.copy(isPageLoaded = false)
         else -> currentState
     }
 
@@ -114,7 +122,7 @@ class ShipmentViewModel(
     }
 
     private fun handleOnBarcodeReceived(currentState: ShipmentViewState, event: ShipmentDataEvent.OnBarcodeReceived) {
-        val renderBarcodeJs = scannerInteractor.getRenderBarcodeJs(event.barcode, currentState.scanMode)
+        val renderBarcodeJs = javaScriptCommandInteractor.getRenderBarcodeJs(event.barcode, currentState.scanMode)
         val isNeedPressEnter = when (currentState.scanMode) {
             ScanMode.TO_ACTIVE_FIELD -> true
             ScanMode.RUN_JS -> false
@@ -128,7 +136,7 @@ class ShipmentViewModel(
     }
 
     private fun handleOnButtonBackClicked() {
-        val renderBarcodeJs = scannerInteractor.getBackClickJS()
+        val renderBarcodeJs = javaScriptCommandInteractor.getBackClickJS()
         processSingleEvent(
             ShipmentSingleEvent.ExecuteJSCommand(
                 renderBarcodeJs = renderBarcodeJs,

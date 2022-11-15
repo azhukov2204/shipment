@@ -75,9 +75,7 @@ internal class BluetoothScannerProviderImpl(
     }
 
     override suspend fun sync() {
-        if (scannerConnectionStateFlow.value != DeviceConnectionState.CONNECTED &&
-            !mutex.isLocked
-        ) {
+        if (scannerConnectionStateFlow.value != DeviceConnectionState.CONNECTED && !mutex.isLocked) {
             establishConnectionSafely()
         }
     }
@@ -88,6 +86,9 @@ internal class BluetoothScannerProviderImpl(
 
     override suspend fun establishConnectionSafely(): Unit = mutex.withLock {
         runCatching {
+            if (bluetoothAdapter.isDiscovering) {
+                bluetoothDeviceProvider.stopSearchDevices()
+            }
             data?.let { currentScannerSetting ->
                 _scannerConnectionMutableStateFlow.emit(DeviceConnectionState.CONNECTING)
                 bluetoothDeviceProvider.tryEnableBluetooth()
@@ -120,7 +121,7 @@ internal class BluetoothScannerProviderImpl(
             }
         }.onFailure { error ->
             Timber.e(error)
-            _scannerConnectionMutableStateFlow.emit(DeviceConnectionState.DISCONNECTED)
+            disconnect()
         }
     }
 
@@ -140,7 +141,7 @@ internal class BluetoothScannerProviderImpl(
                         val bufferText = String(buffer, 0, length)
                         scanResult.append(bufferText)
                     } while (bufferText.last() != SCAN_END_CHAR)
-                    _scanResultMutableFlow.emit(scanResult.toString())
+                    _scanResultMutableFlow.emit(scanResult.toString().removeSuffix(SCAN_END_CHAR.toString()))
                 }
             }
         }.onFailure { error ->

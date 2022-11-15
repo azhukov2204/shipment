@@ -38,14 +38,13 @@ class RenderJSBarcodeProviderImpl : RenderJSBarcodeProvider {
             "        ele.value = ele.value.substr(0, start) + barcode + ele.value.substring(end, curLength);\n" +
             "        ele.setSelectionRange(start + barcode.length, start + barcode.length);\n" +
             "    } else if (tagName == 'input' && (ele.type == 'email' || ele.type == 'number')) {\n" +
-            "        var curLength = ele.value.length;\n" +
             "        var maxlength = ele.maxLength;\n" +
             "        if (maxlength != -1) {\n" +
-            "            if (curLength + barcode.length > maxlength) {\n" +
-            "                barcode = barcode.substr(0, maxlength - curLength);\n" +
+            "            if (barcode.length > maxlength) {\n" +
+            "                barcode = barcode.substr(0, maxlength);\n" +
             "            }\n" +
             "        }\n" +
-            "        ele.value = ele.value + barcode;\n" +
+            "        ele.value = barcode;\n" +
             "    }\n" +
             "})('$escapedBarcode');"
     }

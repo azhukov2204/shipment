@@ -26,7 +26,8 @@ class SplashFragment : BaseFragment<SplashViewModel, SplashViewState>(R.layout.f
         startLogoAnimation()
         permissionResultLauncher.launch(
             arrayOf(
-                Manifest.permission.READ_PHONE_STATE
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.ACCESS_FINE_LOCATION
             )
         )
     }

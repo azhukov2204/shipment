@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.lifecycleScope
 import by.kirich1409.viewbindingdelegate.viewBinding
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import org.koin.androidx.viewmodel.ext.android.viewModel
 import ru.perekrestok.android.extension.FileDirectoryPath
@@ -28,6 +29,7 @@ class ShipmentFragment : BaseFragment<ShipmentViewModel, ShipmentViewState>(R.la
         private const val USER_AGENT_NAME = "wms-native-app"
         private const val WEB_VIEW_CACHE_DB_NAME = "wms_native_wv_db"
         private const val JAVASCRIPT_INTERFACE_NAME = "nativeApp"
+        private const val ENTER_CLICK_EMULATED_DELAY_MS = 100L
         fun newInstance(): ShipmentFragment = ShipmentFragment()
     }
 
@@ -169,6 +171,7 @@ class ShipmentFragment : BaseFragment<ShipmentViewModel, ShipmentViewState>(R.la
         binding.shipmentWv.evaluateJavascript(event.renderBarcodeJs) {}
         if (event.isNeedPressEnter) {
             viewLifecycleOwner.lifecycleScope.launch(Dispatchers.IO) {
+                delay(ENTER_CLICK_EMULATED_DELAY_MS)
                 instrumentation.sendKeyDownUpSync(KeyEvent.KEYCODE_ENTER)
             }
         }
